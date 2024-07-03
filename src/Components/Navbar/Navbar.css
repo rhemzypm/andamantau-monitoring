@@ -1,0 +1,13 @@
+.bottom-navigation {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+
+@media (max-width: 600px) {
+    .MuiBottomNavigationAction-label {
+        font-size: 12px;
+
+    }
+}

@@ -1,0 +1,42 @@
+.home-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+    padding: 0 20px;
+}
+
+.home-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 9px;
+    width: 100%;
+    margin-top: 30px;
+}
+
+.home-title {
+    color: #01A5A0;
+    font-size: 24px;
+    font-weight: 700;
+    text-align: center;
+
+}
+
+.home-underline {
+    width: 61px;
+    height: 3px;
+    background: #01A5A0;
+    border-radius: 3px;
+}
+
+/* Media Query untuk Responsivitas */
+@media (max-width: 768px) {
+    .home-container {
+        padding: 0 10px;
+    }
+
+    .home-title {
+        font-size: 36px;
+    }
+}
