@@ -20,7 +20,6 @@
     font-size: 24px;
     font-weight: 700;
     text-align: center;
-
 }
 
 .home-underline {
@@ -30,6 +29,19 @@
     border-radius: 3px;
 }
 
+.card-container {
+    width: 100%;
+    max-width: 800px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
 /* Media Query untuk Responsivitas */
 @media (max-width: 768px) {
     .home-container {
@@ -37,6 +49,15 @@
     }
 
     .home-title {
-        font-size: 36px;
+        font-size: 20px;
+    }
+
+    .home-underline {
+        width: 50px;
+    }
+
+    .card-container {
+        padding: 15px;
+        margin-top: 15px;
     }
 }
