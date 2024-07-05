@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Typography, Paper, Button } from '@mui/material';
-import Navbar from '../Navbar/Navbar'; 
+import Navbar from '../Navbar/Navbar';
+import BackButton from '../BackButton/BackButton'; // Import BackButton
 import axios from 'axios';
 import './Settings.css';
 
@@ -26,11 +27,12 @@ const Settings = () => {
 
   return (
     <div className="settings-page">
+      <BackButton /> 
       <Container component="main" className="settings-container">
         <div className="settings-header">
-        <div className="settings-title">Pengaturan</div>
-        <div className="settings-underline"></div>
-      </div>
+          <div className="settings-title">Pengaturan</div>
+          <div className="settings-underline"></div>
+        </div>
         <Paper elevation={3} className="settings-paper">
           <Typography variant="h6" className="settings-info">
             Nama Pengguna: {userInfo.name}
@@ -47,7 +49,7 @@ const Settings = () => {
           </Button>
         </Paper>
       </Container>
-      <Navbar /> 
+      <Navbar />
     </div>
   );
 };
