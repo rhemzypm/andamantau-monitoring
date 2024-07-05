@@ -4,7 +4,7 @@ import './LoginSignup.css';
 import user_icon from '../Assets/person.png';
 import password from '../Assets/password.png';
 import email from '../Assets/email.png';
-import { users } from '../dummydata';
+import { users } from '../dummydata'; // Import data dummy
 
 export const LoginSignup = () => {
   const [action, setAction] = useState("Login");
@@ -29,14 +29,28 @@ export const LoginSignup = () => {
     const { name, email, password } = inputs;
 
     if (action === newAction) {
-      const user = users.find(user => user.email === email && user.password === password);
-      if (user) {
-        setClickCount(clickCount + 1);
-        if (clickCount + 1 >= 2) {
-          navigate('/home');
+      if (newAction === "Login") {
+        // Handle login logic
+        const user = users.find(user => user.email === email && user.password === password);
+        if (user) {
+          setClickCount(clickCount + 1);
+          if (clickCount + 1 >= 2) {
+            navigate('/home');
+          }
+        } else {
+          setError('Email or password is incorrect');
         }
-      } else {
-        setError('Email or password is incorrect');
+      } else if (newAction === "Sign Up") {
+        // Handle sign-up logic
+        const newUser = {
+          id: users.length + 1,
+          name,
+          email,
+          password
+        };
+        // Simulate adding new user to the data
+        users.push(newUser);
+        navigate('/home');
       }
     } else {
       setAction(newAction);
