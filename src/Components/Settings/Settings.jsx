@@ -27,7 +27,10 @@ const Settings = () => {
   return (
     <div className="settings-page">
       <Container component="main" className="settings-container">
-        <div className="home-title">Device Saya</div>
+        <div className="settings-header">
+        <div className="settings-title">Pengaturan</div>
+        <div className="settings-underline"></div>
+      </div>
         <Paper elevation={3} className="settings-paper">
           <Typography variant="h6" className="settings-info">
             Nama Pengguna: {userInfo.name}

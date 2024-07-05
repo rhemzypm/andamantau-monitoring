@@ -1,9 +1,20 @@
+.home-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding-top: 50px;
+    /* Sesuaikan nilai ini berdasarkan tinggi Navbar */
+}
+
 .home-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 50px;
     padding: 0 20px;
+    margin-bottom: 80px;
+    /* Tambahkan margin bawah untuk memberi ruang pada navbar */
 }
 
 .home-header {
@@ -12,7 +23,8 @@
     align-items: center;
     gap: 9px;
     width: 100%;
-    margin-top: 30px;
+    margin-top: 10px;
+    /* Kurangi jarak bagian atas */
 }
 
 .home-title {
@@ -42,6 +54,28 @@
     gap: 20px;
 }
 
+.add-device-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    /* Add some spacing from the cards */
+    margin-bottom: 80px;
+    /* Tambahkan margin bawah untuk memberi ruang pada navbar */
+}
+
+.add-device-button {
+    background-color: #348F7D;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.add-device-button:hover {
+    background-color: #2b7464;
+}
+
 /* Media Query untuk Responsivitas */
 @media (max-width: 768px) {
     .home-container {
@@ -59,5 +93,11 @@
     .card-container {
         padding: 15px;
         margin-top: 15px;
+    }
+
+    .add-device-button {
+        width: 100%;
+        text-align: center;
+        padding: 10px;
     }
 }

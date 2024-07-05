@@ -11,12 +11,28 @@
     width: 100%;
 }
 
+.settings-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 9px;
+    width: 100%;
+    margin-top: 30px;
+}
+
 .settings-title {
     color: #01A5A0;
     font-size: 24px;
     font-weight: 700;
     text-align: center;
     margin-bottom: 20px;
+}
+
+.settings-underline {
+    width: 60px;
+    height: 4px;
+    background: #01A5A0;
+    border-radius: 3px;
 }
 
 .settings-info {

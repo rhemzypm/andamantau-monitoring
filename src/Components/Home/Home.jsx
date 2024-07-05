@@ -1,48 +1,37 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState } from 'react';
 import Navbar from '../Navbar/Navbar';
 import Card from '../Carousel Card/Card';
 import './Home.css';
 
-
-// const Home = () => {
-//  const [devices, setDevices] = useState([]); 
-
-//   useEffect(() => {
-//     fetch('https://example.com/api/devices')
-//       .then(response => response.json())
-//       .then(data => setDevices(data))
-//       .catch(error => console.error('Error fetching data:', error));
-//   }, []);
-
-//   return (
-//     <div className="home-container">
-//       <div className="home-header">
-//         <div className="home-title">Device Saya</div>
-//         <div className="home-underline"></div>
-//       </div>
-//       <div className="card-container">
-//         {devices.map(device => (
-//           <Card key={device.id} title={device.name} description={device.description} />
-//         ))}
-//       </div>
-//       <Navbar />
-//     </div>
-//   );
-// };
-
 const Home = () => {
+  const [devices, setDevices] = useState([
+    { id: 1, name: 'Device 1', description: 'Ini adalah deskripsi dari device 1.' },
+    { id: 2, name: 'Device 2', description: 'Ini adalah deskripsi dari device 2.' },
+    { id: 3, name: 'Device 3', description: 'Ini adalah deskripsi dari device 3.' },
+  ]);
+
+  const handleDetailsClick = (deviceId) => {
+    console.log(`Details clicked for device with ID ${deviceId}`);
+    //Logic Backend Istot
+  };
+
   return (
-    <div className="home-container">
-      <div className="home-header">
-        <div className="home-title">Device Saya</div>
-        <div className="home-underline"></div>
-      </div>
-      <div className="card-container">
-        <Card title="Device 1" description="Ini adalah isi dari device pertama." />
-        <Card title="Device 2" description="Ini adalah isi dari device kedua." />
-        <Card title="Device 3" description="Ini adalah isi dari device ketiga." />
-      </div>
+    <div className="home-page">
       <Navbar />
+      <div className="home-container">
+        <div className="home-header">
+          <div className="home-title">Device Saya</div>
+          <div className="home-underline"></div>
+        </div>
+        <div className="card-container">
+          {devices.map(device => (
+            <Card key={device.id} title={device.name} description={device.description} onDetailsClick={() => handleDetailsClick(device.id)} />
+          ))}
+          <div className="add-device-container">
+            <button className="add-device-button">Add Device</button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
