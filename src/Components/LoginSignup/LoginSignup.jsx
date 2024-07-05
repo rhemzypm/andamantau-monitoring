@@ -4,6 +4,7 @@ import './LoginSignup.css';
 import user_icon from '../Assets/person.png';
 import password from '../Assets/password.png';
 import email from '../Assets/email.png';
+import { users } from '../dummydata';
 
 export const LoginSignup = () => {
   const [action, setAction] = useState("Login");
@@ -13,6 +14,7 @@ export const LoginSignup = () => {
     email: '',
     password: ''
   });
+  const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const handleInputChange = (e) => {
@@ -25,19 +27,21 @@ export const LoginSignup = () => {
 
   const handleButtonClick = (newAction) => {
     const { name, email, password } = inputs;
-    const isLoginValid = email && password;
-    const isSignUpValid = name && email && password;
 
     if (action === newAction) {
-      if ((newAction === "Login" && isLoginValid) || (newAction === "Sign Up" && isSignUpValid)) {
+      const user = users.find(user => user.email === email && user.password === password);
+      if (user) {
         setClickCount(clickCount + 1);
         if (clickCount + 1 >= 2) {
           navigate('/home');
         }
+      } else {
+        setError('Email or password is incorrect');
       }
     } else {
       setAction(newAction);
       setClickCount(1);
+      setError('');
     }
   };
 
@@ -96,6 +100,7 @@ export const LoginSignup = () => {
           Login
         </div>
       </div>
+      {error && <div className='error-message'>{error}</div>}
     </div>
   );
 };
