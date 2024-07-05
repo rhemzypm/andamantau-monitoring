@@ -4,12 +4,12 @@ import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import SettingsIcon from '@mui/icons-material/Settings';
 import HomeIcon from '@mui/icons-material/Home';
-import { useNavigate } from 'react-router-dom'; 
+import { useNavigate } from 'react-router-dom';
 import './Navbar.css';
 
 export default function Navbar() {
   const [value, setValue] = React.useState(0);
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -30,11 +30,39 @@ export default function Navbar() {
       <BottomNavigation
         showLabels
         value={value}
-        onChange={handleChange} 
-        className="bottom-navigation" 
+        onChange={handleChange}
+        className="bottom-navigation"
       >
-        <BottomNavigationAction label="Dashboard" icon={<HomeIcon />} />
-        <BottomNavigationAction label="Pengaturan" icon={<SettingsIcon />} />
+        <BottomNavigationAction 
+          label="Dashboard" 
+          icon={<HomeIcon sx={{ color: '#FFFFFF' }} />} 
+          sx={{
+            '& .MuiBottomNavigationAction-label': {
+              color: '#FFFFFF', 
+            },
+            '& .Mui-selected .MuiBottomNavigationAction-label': {
+              color: '#FFFFFF', 
+            },
+            '&:hover': {
+              backgroundColor: 'transparent', 
+            },
+          }}
+        />
+        <BottomNavigationAction 
+          label="Pengaturan" 
+          icon={<SettingsIcon sx={{ color: '#FFFFFF' }} />} 
+          sx={{
+            '& .MuiBottomNavigationAction-label': {
+              color: '#FFFFFF', 
+            },
+            '& .Mui-selected .MuiBottomNavigationAction-label': {
+              color: '#FFFFFF', 
+            },
+            '&:hover': {
+              backgroundColor: 'transparent', 
+            },
+          }}
+        />
       </BottomNavigation>
     </Box>
   );
