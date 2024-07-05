@@ -1,4 +1,3 @@
-// LoginSignup.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './LoginSignup.css';
@@ -33,7 +32,7 @@ export const LoginSignup = () => {
       if ((newAction === "Login" && isLoginValid) || (newAction === "Sign Up" && isSignUpValid)) {
         setClickCount(clickCount + 1);
         if (clickCount + 1 >= 2) {
-          navigate('/home'); // Ganti '/home' dengan rute halaman Home Anda
+          navigate('/home');
         }
       }
     } else {
