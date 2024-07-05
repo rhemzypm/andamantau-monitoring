@@ -27,10 +27,8 @@ const Settings = () => {
   return (
     <div className="settings-page">
       <Container component="main" className="settings-container">
+        <div className="home-title">Device Saya</div>
         <Paper elevation={3} className="settings-paper">
-          <Typography variant="h4" gutterBottom align="center" className="settings-title">
-            Pengaturan
-          </Typography>
           <Typography variant="h6" className="settings-info">
             Nama Pengguna: {userInfo.name}
           </Typography>
@@ -39,7 +37,6 @@ const Settings = () => {
           </Typography>
           <Button
             variant="contained"
-            color="secondary"
             onClick={handleLogout}
             className="logout-button"
           >

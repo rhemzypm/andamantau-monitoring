@@ -15,13 +15,13 @@ export default function Navbar() {
     setValue(newValue);
     switch (newValue) {
       case 0:
-        navigate('/');
+        navigate('/Home');
         break;
       case 1:
         navigate('/settings');
         break;
       default:
-        navigate('/');
+        navigate('/home');
     }
   };
 
