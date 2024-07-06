@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './LoginSignup.css';
 import user_icon from '../Assets/person.png';
 import password from '../Assets/password.png';
@@ -99,7 +99,9 @@ export const LoginSignup = () => {
           />
         </div>
       </div>
-      <div className='forgot-password'>Lupa Password? <span>Klik Di sini</span></div>
+      <div className='forgot-password'>
+        Lupa Password? <Link to="/forgotpassword">Klik Di sini</Link>
+      </div>
       <div className='submit-container'>
         <div 
           className={action === "Login" ? "submit gray" : "submit"} 

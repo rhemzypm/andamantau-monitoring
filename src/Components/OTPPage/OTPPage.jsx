@@ -1,6 +1,6 @@
-// src/Components/OTPPage/OTPPage.jsx
 import React, { useState } from 'react';
 import { Container, Typography, Paper, Button, TextField } from '@mui/material';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import Navbar from '../Navbar/Navbar';
 import BackButton from '../BackButton/BackButton';
 import './OTPPage.css';
@@ -8,10 +8,16 @@ import './OTPPage.css';
 const OTPPage = () => {
   const [otp, setOtp] = useState('');
   const [message, setMessage] = useState('');
+  const navigate = useNavigate(); // Initialize useNavigate
 
   const handleOtpSubmit = () => {
-    // Logic for handling OTP submission
-    setMessage('OTP has been successfully verified.');
+    // Simulate OTP verification logic (replace with actual OTP verification logic)
+    if (otp === '123456') { // Example OTP validation
+      setMessage('OTP has been successfully verified.');
+      navigate('/inputnewpassword/:userId"'); // Redirect to InputNewPassword page
+    } else {
+      setMessage('Invalid OTP. Please try again.');
+    }
   };
 
   return (

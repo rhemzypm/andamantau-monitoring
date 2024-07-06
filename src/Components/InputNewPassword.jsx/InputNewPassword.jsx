@@ -14,7 +14,7 @@ const InputNewPassword = () => {
     // Kirim data password baru (misalnya dengan API)
     // Setelah berhasil, navigasi ke halaman lain atau beri pesan sukses
     alert('Password reset successful! Redirecting to login...');
-    navigate('/login'); // Navigasi ke halaman login setelah reset password
+    navigate('/loginsignup'); // Navigasi ke halaman login setelah reset password
   };
 
   return (
