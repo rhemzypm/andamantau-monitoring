@@ -1,5 +1,6 @@
 // src/Components/TambahKolam/TambahKolam.jsx
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Container, Typography, Paper, Button, TextField } from '@mui/material';
 import Navbar from '../Navbar/Navbar';
 import BackButton from '../BackButton/BackButton';
@@ -8,14 +9,15 @@ import './TambahKolam.css';
 const TambahKolam = () => {
   const [deviceName, setDeviceName] = useState('');
   const [message, setMessage] = useState('');
+  const navigate = useNavigate();
 
   const handleTambahClick = () => {
     // Logika untuk menambahkan device
     if (deviceName === 'Kolam Terpakai') {
-      setMessage('Nama Kolam Sudah Terpakai Bos');
+      setMessage('Nama Kolam Sudah Terpakai');
     } else {
-      setMessage(''); // Bersihkan pesan kesalahan jika berhasil
-      // Tambahkan logika untuk menyimpan nama device baru
+      setMessage(''); 
+      navigate('/home');
     }
   };
 
