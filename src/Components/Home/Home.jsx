@@ -1,4 +1,6 @@
+// src/Components/Home/Home.jsx
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Navbar from '../Navbar/Navbar';
 import Card from '../Carousel Card/Card';
 import BackButton from '../BackButton/BackButton';
@@ -6,14 +8,20 @@ import './Home.css';
 
 const Home = () => {
   const [devices, setDevices] = useState([
-    { id: 1, name: 'Device 1', description: 'Ini adalah deskripsi dari device 1.' },
-    { id: 2, name: 'Device 2', description: 'Ini adalah deskripsi dari device 2.' },
-    { id: 3, name: 'Device 3', description: 'Ini adalah deskripsi dari device 3.' },
+    { id: 1, name: 'Kolam 1', description: 'Ini adalah deskripsi dari Kolam 1.' },
+    { id: 2, name: 'Kolam 2', description: 'Ini adalah deskripsi dari Kolam 2.' },
+    { id: 3, name: 'Kolam 3', description: 'Ini adalah deskripsi dari Kolam 3.' },
   ]);
+
+  const navigate = useNavigate();
 
   const handleDetailsClick = (deviceId) => {
     console.log(`Details clicked for device with ID ${deviceId}`);
-    //Logic Backend Istot
+    // Logic Backend Istot
+  };
+
+  const handleTambahKolamClick = () => {
+    navigate('/tambahkolam');
   };
 
   return (
@@ -22,7 +30,7 @@ const Home = () => {
       <div className="home-container">
         <div className="home-header">
           <BackButton />
-          <div className="home-title">Device Saya</div>
+          <div className="home-title">Kolam Saya</div>
           <div className="home-underline"></div>
         </div>
         <div className="card-container">
@@ -30,7 +38,7 @@ const Home = () => {
             <Card key={device.id} title={device.name} description={device.description} onDetailsClick={() => handleDetailsClick(device.id)} />
           ))}
           <div className="add-device-container">
-            <button className="add-device-button">Add Device</button>
+            <button className="add-device-button" onClick={handleTambahKolamClick}>Tambah Kolam</button>
           </div>
         </div>
       </div>
