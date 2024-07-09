@@ -1,0 +1,116 @@
+.kolam-ikan-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #DEF3F2; /* Sesuaikan warna latar belakang */
+  min-height: 100vh;
+}
+
+.kolam-ikan-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 800px; /* Sesuaikan lebar maksimal */
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.kolam-ikan-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.kolam-ikan-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #01A5A0;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.kolam-ikan-underline {
+  width: 50px;
+  height: 3px;
+  background: #01A5A0;
+  border-radius: 3px;
+  margin-bottom: 20px;
+}
+
+.card-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.add-device-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.add-device-button {
+  background-color: #348F7D;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.add-device-button:hover {
+  background-color: #2b7464;
+}
+
+.edit-container {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.edit-button {
+  background-color: #348F7D;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.edit-button:hover {
+  background-color: #2b7464;
+}
+
+.delete-button {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.delete-button:hover {
+  background-color: #c0392b;
+}
+
+@media (max-width: 768px) {
+  .kolam-ikan-container {
+    padding: 10px;
+  }
+
+  .kolam-ikan-title {
+    font-size: 20px;
+  }
+
+  .kolam-ikan-underline {
+    width: 40px;
+  }
+}
