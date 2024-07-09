@@ -2,22 +2,33 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './CardKolam.css';
 
-const Card = ({ title, status, onDetailsClick }) => {
+const CardKolam = ({ title, description, status, onDetailsClick, onDeleteClick, editMode }) => {
   return (
     <div className="card">
       <div className="card-content">
         <h3 className="card-title">{title}</h3>
-        <p className="card-status">{status ? 'On' : 'Off'}</p>
-        <button className="details-button" onClick={onDetailsClick}>Details</button>
+        <p className="card-description">{description}</p>
+        {editMode ? (
+          <button className="delete-button delete-button-edit" onClick={onDeleteClick}>
+            Delete
+          </button>
+        ) : (
+          <button className="details-button" onClick={onDetailsClick}>
+            Details
+          </button>
+        )}
       </div>
     </div>
   );
 };
 
-Card.propTypes = {
+CardKolam.propTypes = {
   title: PropTypes.string.isRequired,
-  status: PropTypes.bool.isRequired,
+  description: PropTypes.string.isRequired,
+  status: PropTypes.string.isRequired, // Menggunakan PropTypes.string karena status di KolamIkan adalah string
   onDetailsClick: PropTypes.func.isRequired,
+  onDeleteClick: PropTypes.func.isRequired,
+  editMode: PropTypes.bool.isRequired,
 };
 
-export default Card;
+export default CardKolam;
