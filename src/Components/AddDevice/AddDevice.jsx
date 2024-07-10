@@ -32,6 +32,21 @@ const AddDevice = () => {
         </div>
         <Paper elevation={3} className="tambah-kolam-paper">
           <Typography variant="h6" className="tambah-kolam-info">
+            ID Device
+          </Typography>
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="device-name"
+            label="Masukkan ID device"
+            name="deviceName"
+            value={deviceName}
+            onChange={(e) => setDeviceName(e.target.value)}
+            className="tambah-kolam-input"
+          />
+          <Typography variant="h6" className="tambah-kolam-info">
             Nama Device
           </Typography>
           <TextField
