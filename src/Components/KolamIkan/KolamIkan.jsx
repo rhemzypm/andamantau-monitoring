@@ -94,7 +94,7 @@ const KolamIkan = () => {
                 status={device.status}
                 onDetailsClick={() => handleDetailsClick(device.id)}
                 onDeleteClick={() => handleDeleteClick(device.id)}
-                editMode={editMode} // Mengirim prop editMode ke CardKolam
+                editMode={editMode}
               />
             </div>
           ))}
