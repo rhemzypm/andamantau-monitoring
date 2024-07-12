@@ -1,4 +1,3 @@
-// src/Components/TambahKolam/TambahKolam.jsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Container, Typography, Paper, Button, TextField } from '@mui/material';
@@ -8,6 +7,7 @@ import './AddDevice.css';
 
 const AddDevice = () => {
   const [deviceName, setDeviceName] = useState('');
+  const [deviceId, setDeviceId] = useState('');
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
 
@@ -17,36 +17,21 @@ const AddDevice = () => {
       setMessage('Nama Kolam Sudah Terpakai');
     } else {
       setMessage(''); 
-      navigate('/home');
+      navigate('/kolamikan'); // Mengarahkan kembali ke halaman KolamIkan
     }
   };
 
   return (
-    <div className="tambah-kolam-page">
+    <div className="add-device-page">
       <Navbar />
-      <Container component="main" className="tambah-kolam-container">
+      <Container component="main" className="add-device-container">
         <BackButton />
-        <div className="tambah-kolam-header">
-          <div className="tambah-kolam-title">Tambah Device</div>
-          <div className="tambah-kolam-underline"></div>
+        <div className="add-device-header">
+          <div className="add-device-title">Tambah Device</div>
         </div>
-        <Paper elevation={3} className="tambah-kolam-paper">
-          <Typography variant="h6" className="tambah-kolam-info">
-            ID Device
-          </Typography>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="device-name"
-            label="Masukkan ID device"
-            name="deviceName"
-            value={deviceName}
-            onChange={(e) => setDeviceName(e.target.value)}
-            className="tambah-kolam-input"
-          />
-          <Typography variant="h6" className="tambah-kolam-info">
+        <div className="add-device-underline"></div>
+        <Paper elevation={3} className="add-device-paper">
+          <Typography variant="h6" className="add-device-id">
             Nama Device
           </Typography>
           <TextField
@@ -59,16 +44,31 @@ const AddDevice = () => {
             name="deviceName"
             value={deviceName}
             onChange={(e) => setDeviceName(e.target.value)}
-            className="tambah-kolam-input"
+            className="add-device-input"
+          />
+          <Typography variant="h6" className="add-device-id">
+            ID Device
+          </Typography>
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="id-device"
+            label="Masukkan ID device"
+            name="deviceID"
+            value={deviceId}
+            onChange={(e) => setDeviceId(e.target.value)}
+            className="add-device-input"
           />
           <Button
             variant="contained"
             onClick={handleTambahClick}
-            className="tambah-button"
+            className="add-device-button"
           >
             Tambah
           </Button>
-          {message && <Typography variant="body2" className="tambah-kolam-message">{message}</Typography>}
+          {message && <Typography variant="body2" className="add-device-message">{message}</Typography>}
         </Paper>
       </Container>
     </div>
