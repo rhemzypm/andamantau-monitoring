@@ -14,32 +14,10 @@ const KolamIkan = () => {
   const [editMode, setEditMode] = useState(false);
   const navigate = useNavigate();
 
-  // Template untuk koneksi ke backend (diimplementasikan sesuai kebutuhan)
-  /*
-  useEffect(() => {
-    fetchDataFromBackend();
-  }, []);
-
-  const fetchDataFromBackend = async () => {
-    try {
-      // Lakukan fetch data dari backend
-      const response = await fetch('https://api.example.com/devices');
-      if (!response.ok) {
-        throw new Error('Failed to fetch devices');
-      }
-      const data = await response.json();
-      setDevices(data);
-    } catch (error) {
-      console.error('Error fetching devices:', error);
-    }
-  };
-  */
-
   const handleDetailsClick = (deviceId) => {
     console.log(`Details clicked for device with ID ${deviceId}`);
-    // Logic Backend Implementasi
-    // Misalnya: Redirect ke halaman detail device
-    navigate(`/details/${deviceId}`);
+    // Redirect ke halaman SensorMonitoring untuk device tersebut
+    navigate(`/sensor-monitoring/${deviceId}`);
   };
 
   const handleTambahKolamClick = () => {
@@ -51,23 +29,8 @@ const KolamIkan = () => {
   };
 
   const handleDeleteClick = (deviceId) => {
-    // Implementasi delete dari backend
     console.log(`Deleting device with ID ${deviceId}`);
-    // Template backend untuk penghapusan
-    /*
-    try {
-      const response = await fetch(`https://api.example.com/devices/${deviceId}`, {
-        method: 'DELETE',
-      });
-      if (!response.ok) {
-        throw new Error('Failed to delete device');
-      }
-      setDevices(devices.filter(device => device.id !== deviceId));
-    } catch (error) {
-      console.error('Error deleting device:', error);
-    }
-    */
-    // Hapus device dari state secara lokal
+    // Hapus device dari state
     setDevices(devices.filter(device => device.id !== deviceId));
   };
 

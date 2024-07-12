@@ -1,0 +1,65 @@
+.sensor-monitoring-page {
+    background-color: #E0F7FA;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+}
+
+.sensor-monitoring-container {
+    width: 100%;
+    max-width: 800px;
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.sensor-monitoring-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.sensor-monitoring-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #348F7D;
+}
+
+.sensor-monitoring-underline {
+    width: 30%;
+    height: 3px;
+    background-color: #348F7D;
+    margin-top: 5px;
+}
+
+.sensor-monitoring-paper {
+    padding: 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.sensor-monitoring-name {
+    font-size: 18px;
+    font-weight: bold;
+    color: #348F7D;
+    align-self: flex-start;
+    margin-bottom: 10px;
+}
+
+@media (max-width: 600px) {
+    .sensor-monitoring-title {
+        font-size: 20px;
+    }
+
+    .sensor-monitoring-name {
+        font-size: 16px;
+    }
+}

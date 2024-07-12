@@ -1,0 +1,12 @@
+.sensor-chart-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.sensor-chart-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #348F7D;
+    margin-bottom: 10px;
+}

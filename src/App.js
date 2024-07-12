@@ -9,6 +9,7 @@ import InputNewPassword from './Components/InputNewPassword.jsx/InputNewPassword
 import TambahKolam from './Components/TambahKolam/TambahKolam.jsx';
 import KolamIkan from './Components/KolamIkan/KolamIkan.jsx';
 import AddDevice from './Components/AddDevice/AddDevice.jsx';
+import SensorMonitoring from './Components/SensorMonitoring/SensorMonitoring.jsx';
 function App() {
   return (
     <Router>
@@ -22,6 +23,8 @@ function App() {
         <Route path="/tambahkolam" element={<TambahKolam />} />
         <Route path="/kolamikan" element={<KolamIkan/>} />
         <Route path="/adddevice" element={<AddDevice />} />
+        <Route path="/sensormonitoring" element={<SensorMonitoring />} />
+         <Route path="/sensor-monitoring/:deviceId" element={<SensorMonitoring />} />
       </Routes>
     </Router>
   );
