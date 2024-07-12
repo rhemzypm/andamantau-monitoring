@@ -1,4 +1,3 @@
-// src/Components/TambahKolam/TambahKolam.jsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Container, Typography, Paper, Button, TextField } from '@mui/material';
@@ -7,17 +6,16 @@ import BackButton from '../BackButton/BackButton';
 import './TambahKolam.css';
 
 const TambahKolam = () => {
-  const [deviceName, setDeviceName] = useState('');
+  const [kolamName, setKolamName] = useState('');
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
 
   const handleTambahClick = () => {
-    // Logika untuk menambahkan device
-    if (deviceName === 'Kolam Terpakai') {
+    if (kolamName === 'Kolam Terpakai') {
       setMessage('Nama Kolam Sudah Terpakai');
     } else {
-      setMessage(''); 
-      navigate('/home');
+      setMessage('');
+      navigate('/kolamikan');
     }
   };
 
@@ -31,7 +29,7 @@ const TambahKolam = () => {
           <div className="tambah-kolam-underline"></div>
         </div>
         <Paper elevation={3} className="tambah-kolam-paper">
-          <Typography variant="h6" className="tambah-kolam-info">
+          <Typography variant="h6" className="tambah-kolam-name">
             Nama Kolam
           </Typography>
           <TextField
@@ -39,17 +37,17 @@ const TambahKolam = () => {
             margin="normal"
             required
             fullWidth
-            id="device-name"
-            label="Masukkan nama device"
-            name="deviceName"
-            value={deviceName}
-            onChange={(e) => setDeviceName(e.target.value)}
+            id="nama-kolam"
+            label="Masukkan Nama Kolam"
+            name="kolamName"
+            value={kolamName}
+            onChange={(e) => setKolamName(e.target.value)}
             className="tambah-kolam-input"
           />
           <Button
             variant="contained"
             onClick={handleTambahClick}
-            className="tambah-button"
+            className="tambah-kolam-button"
           >
             Tambah
           </Button>

@@ -1,133 +1,99 @@
 .tambah-kolam-page {
+    background-color: #E0F7FA;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    min-height: 80vh;
-    padding-top: 10px;
-    position: relative;
-    background-color: #E0F7FA;
+    padding: 10px;
 }
 
 .tambah-kolam-container {
+    width: 100%;
+    max-width: 600px;
+    padding: 20px;
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    padding: 0 20px;
-    margin-bottom: 80px;
-    width: 100%;
-    max-width: 800px;
 }
 
 .tambah-kolam-header {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 9px;
-    width: 100%;
-    margin-top: 10px;
-    position: relative;
+    margin-bottom: 20px;
+    text-align: center;
 }
 
 .tambah-kolam-title {
-    color: #01A5A0;
     font-size: 24px;
-    font-weight: 700;
-    text-align: center;
+    font-weight: bold;
+    color: #348F7D;
 }
 
 .tambah-kolam-underline {
-    width: 91px;
+    width: 30%;
     height: 3px;
-    background: #01A5A0;
-    border-radius: 3px;
+    background-color: #348F7D;
+    margin-top: 5px;
 }
 
 .tambah-kolam-paper {
-    width: 100%;
-    background-color: #ffffff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
     padding: 20px;
-    margin-top: 20px;
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 20px;
 }
 
-.tambah-kolam-info {
-    margin-bottom: 20px;
-    text-align: center;
+.tambah-kolam-name {
+    font-size: 18px;
+    font-weight: bold;
+    color: #348F7D;
+    align-self: flex-start;
+    margin-bottom: 10px;
 }
 
 .tambah-kolam-input {
     margin-bottom: 20px;
 }
 
-.tambah-button {
+.tambah-kolam-button {
     background-color: #348F7D;
     color: white;
     border: none;
     padding: 10px 20px;
     border-radius: 4px;
     cursor: pointer;
+    width: 100%;
+    max-width: 200px;
+    text-align: center;
 }
 
-.tambah-button:hover {
+.tambah-kolam-button:hover {
     background-color: #2b7464;
 }
 
 .tambah-kolam-message {
-    margin-top: 20px;
-    color: red;
-    text-align: center;
+    color: #D32F2F;
+    margin-top: 10px;
 }
 
-.back-button {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    background: none;
-    border: none;
-    cursor: pointer;
-}
-
-.back-button svg {
-    fill: #01A5A0;
-    width: 24px;
-    height: 24px;
-}
-
-/* Media Query for Responsiveness */
-@media (max-width: 768px) {
-    .tambah-kolam-container {
-        padding: 0 10px;
-    }
-
+/* Media Queries for responsiveness */
+@media (max-width: 600px) {
     .tambah-kolam-title {
         font-size: 20px;
     }
 
-    .tambah-kolam-paper {
-        padding: 15px;
-        margin-top: 15px;
+    .tambah-kolam-name {
+        font-size: 16px;
     }
 
-    .tambah-button {
-        width: 100%;
-        text-align: left;
-        padding: 10px;
+    .tambah-kolam-input {
+        font-size: 14px;
     }
 
-    .back-button {
-        top: 5px;
-        left: 5px;
-    }
-
-    .back-button svg {
-        width: 20px;
-        height: 20px;
+    .tambah-kolam-button {
+        padding: 8px 16px;
     }
 }

@@ -7,17 +7,16 @@ import './AddDevice.css';
 
 const AddDevice = () => {
   const [deviceName, setDeviceName] = useState('');
-  const [deviceId, setDeviceId] = useState('');
+  const [deviceID, setDeviceID] = useState('');
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
 
   const handleTambahClick = () => {
-    // Logika untuk menambahkan device
     if (deviceName === 'Kolam Terpakai') {
       setMessage('Nama Kolam Sudah Terpakai');
     } else {
-      setMessage(''); 
-      navigate('/kolamikan'); // Mengarahkan kembali ke halaman KolamIkan
+      setMessage('');
+      navigate('/home');
     }
   };
 
@@ -28,8 +27,8 @@ const AddDevice = () => {
         <BackButton />
         <div className="add-device-header">
           <div className="add-device-title">Tambah Device</div>
+          <div className="add-device-underline"></div>
         </div>
-        <div className="add-device-underline"></div>
         <Paper elevation={3} className="add-device-paper">
           <Typography variant="h6" className="add-device-id">
             Nama Device
@@ -39,8 +38,8 @@ const AddDevice = () => {
             margin="normal"
             required
             fullWidth
-            id="device-name"
-            label="Masukkan nama device"
+            id="nama-device"
+            label="Masukkan Nama Device"
             name="deviceName"
             value={deviceName}
             onChange={(e) => setDeviceName(e.target.value)}
@@ -55,10 +54,10 @@ const AddDevice = () => {
             required
             fullWidth
             id="id-device"
-            label="Masukkan ID device"
+            label="Masukkan ID Device"
             name="deviceID"
-            value={deviceId}
-            onChange={(e) => setDeviceId(e.target.value)}
+            value={deviceID}
+            onChange={(e) => setDeviceID(e.target.value)}
             className="add-device-input"
           />
           <Button

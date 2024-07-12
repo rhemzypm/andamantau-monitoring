@@ -18,22 +18,23 @@
 
 .add-device-header {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 
 .add-device-title {
     font-size: 24px;
     font-weight: bold;
     color: #348F7D;
+    text-align: center;
 }
 
 .add-device-underline {
-    width: 100%;
-    height: 2px;
+    width: 30%;
+    height: 3px;
     background-color: #348F7D;
-    margin-bottom: 20px;
+    margin-top: 5px;
 }
 
 .add-device-paper {
@@ -63,6 +64,7 @@
     padding: 10px 20px;
     border-radius: 4px;
     cursor: pointer;
+    margin-top: 20px;
 }
 
 .add-device-button:hover {
@@ -72,4 +74,22 @@
 .add-device-message {
     color: #D32F2F;
     margin-top: 10px;
+}
+
+@media (max-width: 600px) {
+    .add-device-paper {
+        padding: 15px;
+    }
+
+    .add-device-title {
+        font-size: 20px;
+    }
+
+    .add-device-underline {
+        width: 70%;
+    }
+
+    .add-device-button {
+        width: 100%;
+    }
 }
