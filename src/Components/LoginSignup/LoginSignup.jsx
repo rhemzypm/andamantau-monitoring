@@ -4,6 +4,14 @@ import './LoginSignup.css';
 import user_icon from '../Assets/person.png';
 import password from '../Assets/password.png';
 import email from '../Assets/email.png';
+import phone_icon from '../Assets/phone.png';
+import address_icon from '../Assets/address.png';
+import city_icon from '../Assets/city.png';
+import province_icon from '../Assets/province.png';
+import business_name_icon from '../Assets/business_name.png';
+import business_desc_icon from '../Assets/business_desc.png';
+import dob_icon from '../Assets/dob.png';
+import Gender from '../Gender/Gender';
 
 export const LoginSignup = () => {
   const [action, setAction] = useState("Login");
@@ -142,21 +150,80 @@ export const LoginSignup = () => {
                       onChange={handleInputChange}
                   />
                 </div>
-                <div className='input'>
-                  <input
-                      type='text'
-                      placeholder='Gender'
-                      name='gender'
+                <div className='dropdown'>
+                  <Gender
                       value={inputs.gender}
-                      onChange={handleInputChange}
+                      onChange={(event) => handleInputChange({ 
+                      target: { name: 'gender', value: event.target.value } })}
                   />
                 </div>
                 <div className='input'>
+                  <img src={dob_icon} alt='' />
                   <input
                       type='date'
                       placeholder='Date of Birth'
                       name='dob'
                       value={inputs.dob}
+                      onChange={handleInputChange}
+                  />
+                </div>
+                <div className='input'>
+                  <img src={phone_icon} alt='' />
+                  <input
+                      type='text'
+                      placeholder='Phone Number'
+                      name='phone'
+                      value={inputs.phone}
+                      onChange={handleInputChange}
+                  />
+                </div>
+                <div className='input'>
+                  <img src={address_icon} alt='' />
+                  <input
+                      type='text'
+                      placeholder='Address'
+                      name='address'
+                      value={inputs.address}
+                      onChange={handleInputChange}
+                  />
+                </div>
+                <div className='input'>
+                  <img src={city_icon} alt='' />
+                  <input
+                      type='text'
+                      placeholder='City'
+                      name='city'
+                      value={inputs.city}
+                      onChange={handleInputChange}
+                  />
+                </div>
+                <div className='input'>
+                  <img src={province_icon} alt='' />
+                  <input
+                      type='text'
+                      placeholder='Province'
+                      name='province'
+                      value={inputs.province}
+                      onChange={handleInputChange}
+                  />
+                </div>
+                <div className='input'>
+                  <img src={business_name_icon} alt='' />
+                  <input
+                      type='text'
+                      placeholder='Business Name'
+                      name='business_name'
+                      value={inputs.business_name}
+                      onChange={handleInputChange}
+                  />
+                </div>
+                <div className='input'>
+                  <img src={business_desc_icon} alt='' />
+                  <input
+                      type='text'
+                      placeholder='Business Description'
+                      name='business_desc'
+                      value={inputs.business_desc}
                       onChange={handleInputChange}
                   />
                 </div>
@@ -177,60 +244,6 @@ export const LoginSignup = () => {
                       placeholder='Confirm Password'
                       name='confirm_password'
                       value={inputs.confirm_password}
-                      onChange={handleInputChange}
-                  />
-                </div>
-                <div className='input'>
-                  <input
-                      type='text'
-                      placeholder='Phone Number'
-                      name='phone'
-                      value={inputs.phone}
-                      onChange={handleInputChange}
-                  />
-                </div>
-                <div className='input'>
-                  <input
-                      type='text'
-                      placeholder='Address'
-                      name='address'
-                      value={inputs.address}
-                      onChange={handleInputChange}
-                  />
-                </div>
-                <div className='input'>
-                  <input
-                      type='text'
-                      placeholder='City'
-                      name='city'
-                      value={inputs.city}
-                      onChange={handleInputChange}
-                  />
-                </div>
-                <div className='input'>
-                  <input
-                      type='text'
-                      placeholder='Province'
-                      name='province'
-                      value={inputs.province}
-                      onChange={handleInputChange}
-                  />
-                </div>
-                <div className='input'>
-                  <input
-                      type='text'
-                      placeholder='Business Name'
-                      name='business_name'
-                      value={inputs.business_name}
-                      onChange={handleInputChange}
-                  />
-                </div>
-                <div className='input'>
-                  <input
-                      type='text'
-                      placeholder='Business Description'
-                      name='business_desc'
-                      value={inputs.business_desc}
                       onChange={handleInputChange}
                   />
                 </div>
