@@ -5,16 +5,45 @@ import { useParams, useNavigate } from 'react-router-dom';
 import './InputNewPassword.css';
 
 const InputNewPassword = () => {
-  const { userId } = useParams();
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const { token } = useParams();
+  const [newPassword, setNewPassword] = useState('');
+  const [passwordConfirmation, setPasswordConfirmation] = useState('');
   const navigate = useNavigate();
 
-  const handleSubmit = () => {
-    // Kirim data password baru (misalnya dengan API)
-    // Setelah berhasil, navigasi ke halaman lain atau beri pesan sukses
-    alert('Password reset successful! Redirecting to login...');
-    navigate('/loginsignup'); // Navigasi ke halaman login setelah reset password
+  const handleSubmit = async () => {
+    if (newPassword !== passwordConfirmation) {
+      alert('Passwords do not match!');
+      return;
+    }
+
+    console.log('Submitting:', { new_password: newPassword, password_confirmation: passwordConfirmation, token });
+
+    try {
+      const response = await fetch(`http://localhost:3001/reset-password/${token}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          new_password: newPassword,
+          password_confirmation: passwordConfirmation,
+        }),
+      });
+
+      const data = await response.json();
+
+      console.log('Response:', data);
+
+      if (response.ok) {
+        alert('Password reset successful! Redirecting to login...');
+        navigate('/loginsignup');
+      } else {
+        alert(data.message || 'Failed to reset password');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('An error occurred while resetting the password');
+    }
   };
 
   return (
@@ -34,13 +63,13 @@ const InputNewPassword = () => {
             margin="normal"
             required
             fullWidth
-            name="password"
+            name="newPassword"
             label="New Password"
             type="password"
-            id="password"
+            id="newPassword"
             autoComplete="new-password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            value={newPassword}
+            onChange={(e) => setNewPassword(e.target.value)}
             className="input-new-password-input"
           />
           <TextField
@@ -48,13 +77,13 @@ const InputNewPassword = () => {
             margin="normal"
             required
             fullWidth
-            name="confirmPassword"
+            name="passwordConfirmation"
             label="Confirm New Password"
             type="password"
-            id="confirmPassword"
-            autoComplete="confirm-password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
+            id="passwordConfirmation"
+            autoComplete="new-password"
+            value={passwordConfirmation}
+            onChange={(e) => setPasswordConfirmation(e.target.value)}
             className="input-new-password-input"
           />
           <Button
