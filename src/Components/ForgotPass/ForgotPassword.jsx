@@ -1,23 +1,41 @@
-// src/Components/ForgotPassword/ForgotPassword.jsx
 import React, { useState } from 'react';
 import { Container, Typography, Paper, Button, TextField } from '@mui/material';
-import Navbar from '../Navbar/Navbar';
 import './ForgotPassword.css';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useNavigate } from 'react-router-dom';
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
-  const navigate = useNavigate(); // Initialize useNavigate
+  const navigate = useNavigate();
+  const [error, setError] = useState('');
 
-  const handleEmailSubmit = () => {
-    // Kirim email (misalnya dengan API)
-    // Setelah email terkirim, navigasi ke halaman OTPPage
-    navigate('/otp'); // Navigate to OTPPage
+  const handleEmailSubmit = async () => {
+    try {
+      // Kirim request ke API 
+      const response = await fetch(`http://localhost:3001/forgot-password`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      });
+      const data = await response.json();
+      if (response.ok) {
+        setError('');
+        window.alert('Email berhasil dikirim');
+        navigate('/loginsignup');
+      } else {
+        setError(data.message || 'Failed to send reset link');
+        window.alert('Email tidak terdaftar');
+      }
+    } catch (error) {
+      setError('An error occurred while sending the email');
+      window.alert('Terjadi kesalahan saat mengirim email');
+      console.error('Error:', error);
+    }
   };
 
   return (
     <div className="forgot-password-page">
-      <Navbar />
       <Container component="main" className="forgot-password-container">
         <div className="forgot-password-header">
           <div className="forgot-password-title">Forgot Password</div>
