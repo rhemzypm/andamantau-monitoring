@@ -18,13 +18,12 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/settings" element={<Settings />} />
         <Route path="/forgotpassword" element={<ForgotPass />} />
-        <Route path="/otp" element={<OTPPage />} />
         <Route path="/inputnewpassword/:token" element={<InputNewPassword />} />
         <Route path="/tambahkolam" element={<TambahKolam />} />
         <Route path="/kolamikan" element={<KolamIkan/>} />
         <Route path="/adddevice" element={<AddDevice />} />
         <Route path="/sensormonitoring" element={<SensorMonitoring />} />
-         <Route path="/sensor-monitoring/:deviceId" element={<SensorMonitoring />} />
+        <Route path="/sensor-monitoring/:deviceId" element={<SensorMonitoring />} />
       </Routes>
     </Router>
   );
