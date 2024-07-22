@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Typography, Paper, Button } from '@mui/material';
 import Navbar from '../Navbar/Navbar';
-import BackButton from '../BackButton/BackButton'; // Import BackButton
+aimport BackButton from '../BackButton/BackButton'; 
 import axios from 'axios';
 import './Settings.css';
 
@@ -9,7 +9,7 @@ const Settings = () => {
   const [userInfo, setUserInfo] = useState({ name: '', email: '' });
 
   useEffect(() => {
-    axios.get('https://example.com/api/userinfo')
+    axios.get('http://localhost:3001/user')
       .then(response => {
         setUserInfo({
           name: response.data.name,

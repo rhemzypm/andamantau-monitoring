@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 import './LoginSignup.css';
 import user_icon from '../Assets/person.png';
 import password from '../Assets/password.png';
@@ -47,7 +48,6 @@ export const LoginSignup = () => {
     if (action === newAction) {
       if (newAction === "Login") {
         try {
-          // Send a POST request to the backend for login
           const response = await fetch('http://localhost:3001/login', {
             method: 'POST',
             headers: {
@@ -59,10 +59,9 @@ export const LoginSignup = () => {
           const data = await response.json();
 
           if (response.ok) {
-            setClickCount(clickCount + 1);
-            if (clickCount + 1 >= 2) {
-              navigate('/home');
-            }
+            // Save token to cookies
+            Cookies.set('token', data.token);
+            navigate('/home');
           } else {
             setError(data.message || 'Email or password is incorrect');
           }
@@ -71,7 +70,6 @@ export const LoginSignup = () => {
         }
       } else if (newAction === "Sign Up") {
         try {
-          // Send a POST request to the backend for sign up
           const response = await fetch('http://localhost:3001/sign-up', {
             method: 'POST',
             headers: {
@@ -99,176 +97,176 @@ export const LoginSignup = () => {
   };
 
   return (
-      <div className='container'>
-        <div className='header'>
-          <div className='text'>{action}</div>
-          <div className='underline'></div>
-        </div>
-        <div className='inputs'>
-          {action === "Login" ? (
-              <>
-                <div className='input'>
-                  <img src={email} alt='' />
-                  <input
-                      type='email'
-                      placeholder='Email Id'
-                      name='email'
-                      value={inputs.email}
-                      onChange={handleInputChange}
-                  />
-                </div>
-                <div className='input'>
-                  <img src={password} alt='' />
-                  <input
-                      type='password'
-                      placeholder='Password'
-                      name='password'
-                      value={inputs.password}
-                      onChange={handleInputChange}
-                  />
-                </div>
-              </>
-          ) : (
-              <>
-                <div className='input'>
-                  <img src={user_icon} alt='' />
-                  <input
-                      type='text'
-                      placeholder='Name'
-                      name='name'
-                      value={inputs.name}
-                      onChange={handleInputChange}
-                  />
-                </div>
-                <div className='input'>
-                  <img src={email} alt='' />
-                  <input
-                      type='email'
-                      placeholder='Email Id'
-                      name='email'
-                      value={inputs.email}
-                      onChange={handleInputChange}
-                  />
-                </div>
-                <div className='dropdown'>
-                  <Gender
-                      value={inputs.gender}
-                      onChange={(event) => handleInputChange({ 
-                      target: { name: 'gender', value: event.target.value } })}
-                  />
-                </div>
-                <div className='input'>
-                  <img src={dob_icon} alt='' />
-                  <input
-                      type='date'
-                      placeholder='Date of Birth'
-                      name='dob'
-                      value={inputs.dob}
-                      onChange={handleInputChange}
-                  />
-                </div>
-                <div className='input'>
-                  <img src={phone_icon} alt='' />
-                  <input
-                      type='text'
-                      placeholder='Phone Number'
-                      name='phone'
-                      value={inputs.phone}
-                      onChange={handleInputChange}
-                  />
-                </div>
-                <div className='input'>
-                  <img src={address_icon} alt='' />
-                  <input
-                      type='text'
-                      placeholder='Address'
-                      name='address'
-                      value={inputs.address}
-                      onChange={handleInputChange}
-                  />
-                </div>
-                <div className='input'>
-                  <img src={city_icon} alt='' />
-                  <input
-                      type='text'
-                      placeholder='City'
-                      name='city'
-                      value={inputs.city}
-                      onChange={handleInputChange}
-                  />
-                </div>
-                <div className='input'>
-                  <img src={province_icon} alt='' />
-                  <input
-                      type='text'
-                      placeholder='Province'
-                      name='province'
-                      value={inputs.province}
-                      onChange={handleInputChange}
-                  />
-                </div>
-                <div className='input'>
-                  <img src={business_name_icon} alt='' />
-                  <input
-                      type='text'
-                      placeholder='Business Name'
-                      name='business_name'
-                      value={inputs.business_name}
-                      onChange={handleInputChange}
-                  />
-                </div>
-                <div className='input'>
-                  <img src={business_desc_icon} alt='' />
-                  <input
-                      type='text'
-                      placeholder='Business Description'
-                      name='business_desc'
-                      value={inputs.business_desc}
-                      onChange={handleInputChange}
-                  />
-                </div>
-                <div className='input'>
-                  <img src={password} alt='' />
-                  <input
-                      type='password'
-                      placeholder='Password'
-                      name='password'
-                      value={inputs.password}
-                      onChange={handleInputChange}
-                  />
-                </div>
-                <div className='input'>
-                  <img src={password} alt='' />
-                  <input
-                      type='password'
-                      placeholder='Confirm Password'
-                      name='confirm_password'
-                      value={inputs.confirm_password}
-                      onChange={handleInputChange}
-                  />
-                </div>
-              </>
-          )}
-        </div>
-        <div className='forgot-password'>
-          Lupa Password? <Link to="/forgotpassword">Klik Di sini</Link>
-        </div>
-        <div className='submit-container'>
-          <div
-              className={action === "Login" ? "submit gray" : "submit"}
-              onClick={() => handleButtonClick("Sign Up")}
-          >
-            SignUp
-          </div>
-          <div
-              className={action === "Sign Up" ? "submit gray" : "submit"}
-              onClick={() => handleButtonClick("Login")}
-          >
-            Login
-          </div>
-        </div>
-        {error && <div className='error-message'>{error}</div>}
+    <div className='container'>
+      <div className='header'>
+        <div className='text'>{action}</div>
+        <div className='underline'></div>
       </div>
+      <div className='inputs'>
+        {action === "Login" ? (
+          <>
+            <div className='input'>
+              <img src={email} alt='' />
+              <input
+                type='email'
+                placeholder='Email Id'
+                name='email'
+                value={inputs.email}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div className='input'>
+              <img src={password} alt='' />
+              <input
+                type='password'
+                placeholder='Password'
+                name='password'
+                value={inputs.password}
+                onChange={handleInputChange}
+              />
+            </div>
+          </>
+        ) : (
+          <>
+            <div className='input'>
+              <img src={user_icon} alt='' />
+              <input
+                type='text'
+                placeholder='Name'
+                name='name'
+                value={inputs.name}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div className='input'>
+              <img src={email} alt='' />
+              <input
+                type='email'
+                placeholder='Email Id'
+                name='email'
+                value={inputs.email}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div className='dropdown'>
+              <Gender
+                value={inputs.gender}
+                onChange={(event) => handleInputChange({ 
+                  target: { name: 'gender', value: event.target.value } })}
+              />
+            </div>
+            <div className='input'>
+              <img src={dob_icon} alt='' />
+              <input
+                type='date'
+                placeholder='Date of Birth'
+                name='dob'
+                value={inputs.dob}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div className='input'>
+              <img src={phone_icon} alt='' />
+              <input
+                type='text'
+                placeholder='Phone Number'
+                name='phone'
+                value={inputs.phone}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div className='input'>
+              <img src={address_icon} alt='' />
+              <input
+                type='text'
+                placeholder='Address'
+                name='address'
+                value={inputs.address}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div className='input'>
+              <img src={city_icon} alt='' />
+              <input
+                type='text'
+                placeholder='City'
+                name='city'
+                value={inputs.city}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div className='input'>
+              <img src={province_icon} alt='' />
+              <input
+                type='text'
+                placeholder='Province'
+                name='province'
+                value={inputs.province}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div className='input'>
+              <img src={business_name_icon} alt='' />
+              <input
+                type='text'
+                placeholder='Business Name'
+                name='business_name'
+                value={inputs.business_name}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div className='input'>
+              <img src={business_desc_icon} alt='' />
+              <input
+                type='text'
+                placeholder='Business Description'
+                name='business_desc'
+                value={inputs.business_desc}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div className='input'>
+              <img src={password} alt='' />
+              <input
+                type='password'
+                placeholder='Password'
+                name='password'
+                value={inputs.password}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div className='input'>
+              <img src={password} alt='' />
+              <input
+                type='password'
+                placeholder='Confirm Password'
+                name='confirm_password'
+                value={inputs.confirm_password}
+                onChange={handleInputChange}
+              />
+            </div>
+          </>
+        )}
+      </div>
+      <div className='forgot-password'>
+        Lupa Password? <Link to="/forgotpassword">Klik Di sini</Link>
+      </div>
+      <div className='submit-container'>
+        <div
+          className={action === "Login" ? "submit gray" : "submit"}
+          onClick={() => handleButtonClick("Sign Up")}
+        >
+          SignUp
+        </div>
+        <div
+          className={action === "Sign Up" ? "submit gray" : "submit"}
+          onClick={() => handleButtonClick("Login")}
+        >
+          Login
+        </div>
+      </div>
+      {error && <div className='error-message'>{error}</div>}
+    </div>
   );
 };
 

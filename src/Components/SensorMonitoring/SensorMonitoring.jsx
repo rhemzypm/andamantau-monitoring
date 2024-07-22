@@ -14,7 +14,6 @@ const SensorMonitoring = () => {
   });
 
   useEffect(() => {
-    // Simulasi data fetching
     const interval = setInterval(() => {
       setData((prevData) => ({
         suhuAir: [...prevData.suhuAir, Math.random() * 10 + 20],
