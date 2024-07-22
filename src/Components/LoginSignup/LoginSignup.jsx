@@ -54,13 +54,13 @@ export const LoginSignup = () => {
               'Content-Type': 'application/json',
             },
             body: JSON.stringify({ email, password }),
+            credentials: 'include',
           });
 
           const data = await response.json();
 
           if (response.ok) {
-            // Save token to cookies
-            Cookies.set('token', data.token);
+            Cookies.set('Authorization', data.Cookies);
             navigate('/home');
           } else {
             setError(data.message || 'Email or password is incorrect');

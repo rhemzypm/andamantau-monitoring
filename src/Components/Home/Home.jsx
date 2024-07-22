@@ -13,7 +13,6 @@ const Home = () => {
 
   useEffect(() => {
     const token = Cookies.get('token');
-
     if (!token) {
       navigate('/loginsignup');
       return;
@@ -26,9 +25,11 @@ const Home = () => {
       withCredentials: true 
     })
       .then(response => {
-        console.log('Response from backend:', response.data);
-        setPonds(response.data);
-        console.log(token, "token");
+        const { data } = response.data; 
+        if (Array.isArray(data)) {
+          setPonds(data); 
+        } else {
+        }
       })
       .catch(error => {
         console.error('Error fetching ponds:', error);
@@ -56,7 +57,7 @@ const Home = () => {
           <div className="home-underline"></div>
         </div>
         <div className="card-container">
-          {ponds.map((pond, index) => (
+          {Array.isArray(ponds) && ponds.map((pond, index) => (
             <Card
               key={index}
               umkmDataId={pond.UmkmDataId}
