@@ -4,7 +4,6 @@ import { LoginSignup } from './Components/LoginSignup/LoginSignup.jsx';
 import Home from './Components/Home/Home';
 import Settings from './Components/Settings/Settings'
 import ForgotPass from './Components/ForgotPass/ForgotPassword.jsx';
-import OTPPage from './Components/OTPPage/OTPPage.jsx';
 import InputNewPassword from './Components/InputNewPassword.jsx/InputNewPassword.jsx';
 import TambahKolam from './Components/TambahKolam/TambahKolam.jsx';
 import KolamIkan from './Components/KolamIkan/KolamIkan.jsx';
