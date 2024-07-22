@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Typography, Paper, Button } from '@mui/material';
 import Navbar from '../Navbar/Navbar';
-aimport BackButton from '../BackButton/BackButton'; 
+import BackButton from '../BackButton/BackButton'; 
 import axios from 'axios';
 import './Settings.css';
 
