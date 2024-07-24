@@ -1,15 +1,31 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Typography, Paper, Button } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import Navbar from '../Navbar/Navbar';
-import BackButton from '../BackButton/BackButton'; 
+import BackButton from '../BackButton/BackButton';
 import axios from 'axios';
+import Cookies from 'js-cookie';
 import './Settings.css';
 
 const Settings = () => {
   const [userInfo, setUserInfo] = useState({ name: '', email: '' });
+  const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get('http://localhost:3001/user')
+    const token = Cookies.get('token');
+    console.log('token:', token); // Log untuk memastikan token terbaca
+    if (!token) {
+      navigate('/loginsignup');
+      return;
+    }
+
+    axios.defaults.withCredentials = true;
+    axios.get('http://localhost:3001/user', {
+      headers: {
+        Authorization: `Bearer ${token}`
+      },
+      withCredentials: true
+    })
       .then(response => {
         setUserInfo({
           name: response.data.name,
@@ -18,16 +34,21 @@ const Settings = () => {
       })
       .catch(error => {
         console.error('There was an error fetching the user info!', error);
+        if (error.response && error.response.status === 401) {
+          navigate('/loginsignup');
+        }
       });
-  }, []);
+  }, [navigate]);
 
   const handleLogout = () => {
     alert('Anda telah logout!');
+    Cookies.remove('Authorization');
+    navigate('/loginsignup');
   };
 
   return (
     <div className="settings-page">
-      <BackButton /> 
+      <BackButton />
       <Container component="main" className="settings-container">
         <div className="settings-header">
           <div className="settings-title">Pengaturan</div>
