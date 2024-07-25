@@ -39,8 +39,8 @@ const Home = () => {
       });
   }, [navigate]);
 
-  const handleDetailsClick = (umkmDataId) => {
-    navigate(`/kolamikan/${umkmDataId}`);
+  const handleDetailsClick = (number_of_device) => {
+    navigate(`/kolamikan/${number_of_device}`);
   };
 
   const handleTambahKolamClick = () => {
@@ -60,9 +60,9 @@ const Home = () => {
           {Array.isArray(ponds) && ponds.map((pond, index) => (
             <Card
               key={index}
-              umkmDataId={pond.UmkmDataId}
+              number_of_device={pond.number_of_device}
               group_name={pond.group_name}
-              onDetailsClick={() => handleDetailsClick(pond.UmkmDataId)}
+              onDetailsClick={() => handleDetailsClick(pond.number_of_device)}
             />
           ))}
           <div className="add-device-container">
