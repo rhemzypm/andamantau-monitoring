@@ -60,6 +60,7 @@ export const LoginSignup = () => {
           const data = await response.json();
 
           if (response.ok) {
+            // Save token to cookies
             Cookies.set('Authorization', data.Cookies);
             navigate('/home');
           } else {

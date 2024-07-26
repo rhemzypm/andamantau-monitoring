@@ -8,28 +8,35 @@ import Cookies from 'js-cookie';
 import './Settings.css';
 
 const Settings = () => {
-  const [userInfo, setUserInfo] = useState({ name: '', email: '' });
+  const [userInfo, setUserInfo] = useState({ 
+    name: '', 
+    email: '', 
+    gender: '', 
+    phone: '', 
+  });
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = Cookies.get('token');
-    console.log('token:', token); // Log untuk memastikan token terbaca
+    const token = Cookies.get(); 
     if (!token) {
       navigate('/loginsignup');
       return;
     }
 
     axios.defaults.withCredentials = true;
-    axios.get('http://localhost:3001/user', {
+    axios.get(`http://localhost:3001/user`, {
       headers: {
         Authorization: `Bearer ${token}`
       },
       withCredentials: true
     })
       .then(response => {
-        setUserInfo({
-          name: response.data.name,
-          email: response.data.email
+        const data = response.data.data; // Ambil data dari response
+        setUserInfo({ 
+          name: data.name, 
+          email: data.email,
+          gender: data.gender,
+          phone: data.phone,
         });
       })
       .catch(error => {
@@ -42,12 +49,13 @@ const Settings = () => {
 
   const handleLogout = () => {
     alert('Anda telah logout!');
-    Cookies.remove('Authorization');
+    Cookies.remove('token'); 
     navigate('/loginsignup');
   };
 
   return (
     <div className="settings-page">
+      <Navbar />
       <BackButton />
       <Container component="main" className="settings-container">
         <div className="settings-header">
@@ -61,6 +69,12 @@ const Settings = () => {
           <Typography variant="h6" className="settings-info">
             Email: {userInfo.email}
           </Typography>
+          <Typography variant="h6" className="settings-info">
+            Gender: {userInfo.gender}
+          </Typography>
+          <Typography variant="h6" className="settings-info">
+            Phone: {userInfo.phone}
+          </Typography>
           <Button
             variant="contained"
             onClick={handleLogout}
@@ -70,7 +84,6 @@ const Settings = () => {
           </Button>
         </Paper>
       </Container>
-      <Navbar />
     </div>
   );
 };

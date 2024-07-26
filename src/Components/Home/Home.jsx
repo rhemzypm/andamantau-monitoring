@@ -9,10 +9,11 @@ import './Home.css';
 
 const Home = () => {
   const [ponds, setPonds] = useState([]);
+  const [editMode, setEditMode] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = Cookies.get('token');
+    const token = Cookies.get();
     if (!token) {
       navigate('/loginsignup');
       return;
@@ -47,6 +48,15 @@ const Home = () => {
     navigate('/tambahkolam');
   };
 
+  const handleEditClick = () => {
+    setEditMode(!editMode);
+  };
+
+  const handleDeleteClick = (number_of_device) => {
+    console.log(`Deleting pond with device number ${number_of_device}`);
+    setPonds(ponds.filter(pond => pond.number_of_device !== number_of_device));
+  };
+
   return (
     <div className="home-page">
       <Navbar />
@@ -57,12 +67,19 @@ const Home = () => {
           <div className="home-underline"></div>
         </div>
         <div className="card-container">
+          <div className="edit-container">
+            <button className={`edit-button ${editMode ? 'active' : ''}`} onClick={handleEditClick}>
+              {editMode ? 'Done' : 'Edit'}
+            </button>
+          </div>
           {Array.isArray(ponds) && ponds.map((pond, index) => (
             <Card
               key={index}
               number_of_device={pond.number_of_device}
               group_name={pond.group_name}
               onDetailsClick={() => handleDetailsClick(pond.number_of_device)}
+              onDeleteClick={() => handleDeleteClick(pond.number_of_device)}
+              editMode={editMode}
             />
           ))}
           <div className="add-device-container">
