@@ -40,8 +40,19 @@ const Home = () => {
       });
   }, [navigate]);
 
-  const handleDetailsClick = (number_of_device) => {
-    navigate(`/kolamikan/${number_of_device}`);
+  const handleDetailsClick = (ID) => {
+    axios.get(`http://localhost:3001/group/${ID}`)
+      .then(response => {
+        const { data } = response.data;
+        if (Array.isArray(data)) {
+          navigate(`/kolamikan/${ID}`);
+        } else {
+          console.error('Error fetching pond:', data);
+        }
+      })
+      .catch(error => {
+        console.error('Error fetching pond:', error);
+      });
   };
 
   const handleTambahKolamClick = () => {
@@ -51,11 +62,11 @@ const Home = () => {
   const handleEditClick = () => {
     setEditMode(!editMode);
   };
-
-  const handleDeleteClick = (number_of_device) => {
-    axios.delete(`https://jsonplaceholder.typicode.com/posts/${number_of_device}`)
+  
+  const handleDeleteClick = (ID) => {
+    axios.delete(`http://localhost:3001/group/${ID}`)
       .then(() => {
-        setPonds(ponds.filter(pond => pond.number_of_device !== number_of_device));
+        setPonds(ponds.filter(pond => pond.ID !== ID));
       })
       .catch(error => {
         console.error('Error deleting pond:', error);
@@ -82,8 +93,8 @@ const Home = () => {
               key={index}
               number_of_device={pond.number_of_device}
               group_name={pond.group_name}
-              onDetailsClick={() => handleDetailsClick(pond.number_of_device)}
-              onDeleteClick={() => handleDeleteClick(pond.number_of_device)}
+              onDetailsClick={() => handleDetailsClick(pond.ID)}
+              onDeleteClick={() => handleDeleteClick(pond.ID)}
               editMode={editMode}
             />
           ))}
