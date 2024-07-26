@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { Container, Typography, Paper, Button, TextField } from '@mui/material';
 import Navbar from '../Navbar/Navbar';
 import BackButton from '../BackButton/BackButton';
+import axios from 'axios';
+import Cookies from 'js-cookie';
 import './TambahKolam.css';
 
 const TambahKolam = () => {
@@ -10,12 +12,39 @@ const TambahKolam = () => {
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
 
-  const handleTambahClick = () => {
-    if (kolamName === 'Kolam Terpakai') {
-      setMessage('Nama Kolam Sudah Terpakai');
-    } else {
-      setMessage('');
-      navigate('/kolamikan');
+  const handleTambahClick = async () => {
+    const token = Cookies.get('token'); 
+    if (!token) {
+      setMessage('Anda harus login terlebih dahulu');
+      navigate('/loginsignup');
+      return;
+    }
+    axios.defaults.withCredentials = true;
+    try {
+      const response = await axios.post('http://localhost:3001/group/create', {
+        group_name: kolamName
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        },
+        withCredentials: true
+      });
+
+      if (response.status === 200) {
+        setMessage('');
+        navigate('/home');
+      } else {
+        setMessage('Kolam sukses ditambahkan');
+      }
+    } catch (error) {
+      if (error.response && error.response.status === 401) {
+        setMessage('Unauthorized: Token mungkin tidak valid atau sudah kadaluarsa.');
+        navigate('/loginsignup');
+      } else if (error.response && error.response.status === 400) {
+        setMessage('Nama Kolam Sudah Terpakai');
+      } else {
+        setMessage('Terjadi kesalahan saat menambahkan kolam.');
+      }
     }
   };
 
