@@ -53,8 +53,13 @@ const Home = () => {
   };
 
   const handleDeleteClick = (number_of_device) => {
-    console.log(`Deleting pond with device number ${number_of_device}`);
-    setPonds(ponds.filter(pond => pond.number_of_device !== number_of_device));
+    axios.delete(`https://jsonplaceholder.typicode.com/posts/${number_of_device}`)
+      .then(() => {
+        setPonds(ponds.filter(pond => pond.number_of_device !== number_of_device));
+      })
+      .catch(error => {
+        console.error('Error deleting pond:', error);
+      });
   };
 
   return (

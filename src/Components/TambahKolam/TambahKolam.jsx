@@ -13,7 +13,7 @@ const TambahKolam = () => {
   const navigate = useNavigate();
 
   const handleTambahClick = async () => {
-    const token = Cookies.get('token'); 
+    const token = Cookies.get(); 
     if (!token) {
       setMessage('Anda harus login terlebih dahulu');
       navigate('/loginsignup');
