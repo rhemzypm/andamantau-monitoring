@@ -14,10 +14,10 @@ const KolamIkan = () => {
   const [editMode, setEditMode] = useState(false);
   const navigate = useNavigate();
 
-  const handleDetailsClick = (deviceId) => {
-    console.log(`Details clicked for device with ID ${deviceId}`);
+  const handleDetailsClick = (ID) => {
+    console.log(`Details clicked for device with ID ${ID}`);
     // Redirect ke halaman SensorMonitoring untuk device tersebut
-    navigate(`/sensor-monitoring/${deviceId}`);
+    navigate(`/sensor-monitoring/${ID}`);
   };
 
   const handleTambahKolamClick = () => {
