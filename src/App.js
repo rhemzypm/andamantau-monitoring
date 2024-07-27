@@ -19,7 +19,7 @@ function App() {
         <Route path="/forgotpassword" element={<ForgotPass />} />
         <Route path="/inputnewpassword/:token" element={<InputNewPassword />} />
         <Route path="/tambahkolam" element={<TambahKolam />} />
-        <Route path="/kolamikan" element={<KolamIkan/>} />
+        <Route path="/kolamikan/:ID" element={<KolamIkan/>} />
         <Route path="/adddevice" element={<AddDevice />} />
         <Route path="/sensormonitoring" element={<SensorMonitoring />} />
         <Route path="/sensor-monitoring/:deviceId" element={<SensorMonitoring />} />

@@ -1,23 +1,54 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import axios from 'axios';
+import Cookies from 'js-cookie';
 import Navbar from '../Navbar/Navbar';
 import CardKolam from '../CardKolam/CardKolam';
 import BackButton from '../BackButton/BackButton';
 import './KolamIkan.css';
 
 const KolamIkan = () => {
-  const [devices, setDevices] = useState([
-    { id: 1, name: 'Kolam Ikan 1', status: 'On' },
-    { id: 2, name: 'Kolam Ikan 2', status: 'Off' },
-    { id: 3, name: 'Kolam Ikan 3', status: 'On' },
-  ]);
+  const [devices, setDevices] = useState([]);
   const [editMode, setEditMode] = useState(false);
   const navigate = useNavigate();
+  const { ID } = useParams(); // Ensure this matches the route parameter name
 
-  const handleDetailsClick = (ID) => {
-    console.log(`Details clicked for device with ID ${ID}`);
-    // Redirect ke halaman SensorMonitoring untuk device tersebut
-    navigate(`/sensor-monitoring/${ID}`);
+  useEffect(() => {
+    const token = Cookies.get(); // Ensure this matches the cookie name
+    if (!token) {
+      console.log('No token found, redirecting to login');
+      navigate('/loginsignup');
+      return;
+    }
+
+    console.log(`Fetching data for group ID: ${ID}`);
+    axios.defaults.withCredentials = true;
+    axios.get(`http://localhost:3001/group/${ID}`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      },
+      withCredentials: true 
+    })
+      .then(response => {
+        console.log('API response:', response);
+        const { data } = response.data;
+        if (Array.isArray(data)) {
+          setDevices(data); 
+        } else {
+          console.error('Data received is not an array:', data);
+        }
+      })
+      .catch(error => {
+        console.error('Error fetching devices:', error);
+        if (error.response && error.response.status === 401) {
+          navigate('/loginsignup');
+        }
+      });
+  }, [ID, navigate]);
+
+  const handleDetailsClick = (deviceId) => {
+    console.log(`Details clicked for device with ID ${deviceId}`);
+    navigate(`/sensor-monitoring/${deviceId}`);
   };
 
   const handleTambahKolamClick = () => {
@@ -30,8 +61,17 @@ const KolamIkan = () => {
 
   const handleDeleteClick = (deviceId) => {
     console.log(`Deleting device with ID ${deviceId}`);
-    // Hapus device dari state
+    // Delete device from state
     setDevices(devices.filter(device => device.id !== deviceId));
+
+    // Optionally, you can also delete the device from the server
+    axios.delete(`http://localhost:3001/device/${deviceId}`, {
+      headers: {
+        Authorization: `Bearer ${Cookies.get('token')}`
+      }
+    }).catch(error => {
+      console.error('Error deleting device:', error);
+    });
   };
 
   return (
@@ -40,7 +80,7 @@ const KolamIkan = () => {
       <div className="kolam-ikan-container">
         <div className="kolam-ikan-header">
           <BackButton />
-          <div className="kolam-ikan-title">Kolam Ikan Saya</div>
+          <div className="kolam-ikan-title">Kolam Ikan Saya</div> //perbaiki fetch nama kolam dari API
           <div className="kolam-ikan-underline"></div>
         </div>
         <div className="card-container">
@@ -50,11 +90,11 @@ const KolamIkan = () => {
             </button>
           </div>
           {devices.map(device => (
-            <div key={device.id}>
+            <div key={device.id}> //data device belum ter fetch
               <CardKolam
                 title={device.name}
                 description={`Status: ${device.status}`}
-                status={device.status}
+                status={device.status} 
                 onDetailsClick={() => handleDetailsClick(device.id)}
                 onDeleteClick={() => handleDeleteClick(device.id)}
                 editMode={editMode}
@@ -62,8 +102,8 @@ const KolamIkan = () => {
             </div>
           ))}
           <div className="add-device-container">
-            <button className="add-device-button" onClick={handleTambahKolamClick}>
-              Tambah Kolam
+            <button className="add-device-button" onClick={handleTambahKolamClick}> 
+              Tambah Kolam 
             </button>
           </div>
         </div>

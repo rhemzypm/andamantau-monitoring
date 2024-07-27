@@ -6,7 +6,7 @@ import Navbar from '../Navbar/Navbar';
 import Card from '../Carousel Card/Card';
 import BackButton from '../BackButton/BackButton';
 import './Home.css';
-// Set
+
 const Home = () => {
   const [ponds, setPonds] = useState([]);
   const [editMode, setEditMode] = useState(false);
@@ -30,6 +30,7 @@ const Home = () => {
         if (Array.isArray(data)) {
           setPonds(data); 
         } else {
+          console.error('Data received is not an array:', data);
         }
       })
       .catch(error => {
@@ -41,18 +42,7 @@ const Home = () => {
   }, [navigate]);
 
   const handleDetailsClick = (ID) => {
-    axios.get(`http://localhost:3001/group/${ID}`)
-      .then(response => {
-        const { data } = response.data;
-        if (Array.isArray(data)) {
-          navigate(`/kolamikan/${ID}`);
-        } else {
-          console.error('Error fetching pond:', data);
-        }
-      })
-      .catch(error => {
-        console.error('Error fetching pond:', error);
-      });
+    navigate(`/kolamikan/${ID}`);
   };
 
   const handleTambahKolamClick = () => {
