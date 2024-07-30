@@ -20,6 +20,14 @@
     margin-top: 30px;
 }
 
+.header-title {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 20px;
+    color: #01A5A0;
+}
+
 .text {
     color: #01A5A0;
     font-size: 6vw;

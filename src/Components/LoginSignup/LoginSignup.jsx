@@ -99,6 +99,7 @@ export const LoginSignup = () => {
 
   return (
     <div className='container'>
+    <div className="header-title">Andamantau Sensor Monitoring</div>
       <div className='header'>
         <div className='text'>{action}</div>
         <div className='underline'></div>
