@@ -21,8 +21,6 @@ const KolamIkan = () => {
       navigate('/loginsignup');
       return;
     }
-
-    console.log(`Fetching data for group ID: ${ID}`);
     axios.defaults.withCredentials = true;
     axios.get(`http://localhost:3001/group/${ID}`, {
       headers: {
@@ -31,13 +29,11 @@ const KolamIkan = () => {
       withCredentials: true 
     })
       .then(response => {
-        console.log('API response:', response);
         const { data } = response.data;
         if (Array.isArray(data) && data.length > 0) {
           setDevices(data);
           setGroupName(data[0].group_name || 'Kolam Ikan Saya');
         } else {
-          console.error('Data received is not in the expected format:', data);
           setGroupName('Kolam Ikan Saya');
         }
       })
@@ -50,7 +46,6 @@ const KolamIkan = () => {
   }, [ID, navigate]);
 
   const handleDetailsClick = useCallback((deviceId) => {
-    console.log(`Details clicked for device with ID ${deviceId}`);
     navigate(`/sensor-monitoring/${deviceId}`);
   }, [navigate]);
 
@@ -63,10 +58,7 @@ const KolamIkan = () => {
   }, []);
 
   const handleDeleteClick = useCallback((deviceId) => {
-    console.log(`Deleting device with ID ${deviceId}`);
-    
     setDevices(devices => devices.filter(device => device.ID !== deviceId));
-    
     requestAnimationFrame(() => {
       axios.delete(`http://localhost:3001/device/${deviceId}`, {
         headers: {
