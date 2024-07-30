@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import Cookies from 'js-cookie';
@@ -49,30 +49,34 @@ const KolamIkan = () => {
       });
   }, [ID, navigate]);
 
-  const handleDetailsClick = (deviceId) => {
+  const handleDetailsClick = useCallback((deviceId) => {
     console.log(`Details clicked for device with ID ${deviceId}`);
     navigate(`/sensor-monitoring/${deviceId}`);
-  };
+  }, [navigate]);
 
-  const handleTambahKolamClick = () => {
+  const handleTambahKolamClick = useCallback(() => {
     navigate('/tambahkolam');
-  };
+  }, [navigate]);
 
-  const handleEditClick = () => {
-    setEditMode(!editMode);
-  };
+  const handleEditClick = useCallback(() => {
+    setEditMode(prevEditMode => !prevEditMode);
+  }, []);
 
-  const handleDeleteClick = (deviceId) => {
+  const handleDeleteClick = useCallback((deviceId) => {
     console.log(`Deleting device with ID ${deviceId}`);
-    setDevices(devices.filter(device => device.ID !== deviceId));
-    axios.delete(`http://localhost:3001/device/${deviceId}`, {
-      headers: {
-        Authorization: `Bearer ${Cookies.get('token')}`
-      }
-    }).catch(error => {
-      console.error('Error deleting device:', error);
+    
+    setDevices(devices => devices.filter(device => device.ID !== deviceId));
+    
+    requestAnimationFrame(() => {
+      axios.delete(`http://localhost:3001/device/${deviceId}`, {
+        headers: {
+          Authorization: `Bearer ${Cookies.get('token')}`
+        }
+      }).catch(error => {
+        console.error('Error deleting device:', error);
+      });
     });
-  };
+  }, []);
 
   return (
     <div className="kolam-ikan-page">
