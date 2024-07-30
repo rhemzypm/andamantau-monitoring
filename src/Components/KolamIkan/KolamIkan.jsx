@@ -9,12 +9,13 @@ import './KolamIkan.css';
 
 const KolamIkan = () => {
   const [devices, setDevices] = useState([]);
+  const [groupName, setGroupName] = useState('');
   const [editMode, setEditMode] = useState(false);
   const navigate = useNavigate();
-  const { ID } = useParams(); // Ensure this matches the route parameter name
+  const { ID } = useParams();
 
   useEffect(() => {
-    const token = Cookies.get(); // Ensure this matches the cookie name
+    const token = Cookies.get();
     if (!token) {
       console.log('No token found, redirecting to login');
       navigate('/loginsignup');
@@ -32,10 +33,12 @@ const KolamIkan = () => {
       .then(response => {
         console.log('API response:', response);
         const { data } = response.data;
-        if (Array.isArray(data)) {
-          setDevices(data); 
+        if (Array.isArray(data) && data.length > 0) {
+          setDevices(data);
+          setGroupName(data[0].group_name || 'Kolam Ikan Saya');
         } else {
-          console.error('Data received is not an array:', data);
+          console.error('Data received is not in the expected format:', data);
+          setGroupName('Kolam Ikan Saya');
         }
       })
       .catch(error => {
@@ -61,10 +64,7 @@ const KolamIkan = () => {
 
   const handleDeleteClick = (deviceId) => {
     console.log(`Deleting device with ID ${deviceId}`);
-    // Delete device from state
-    setDevices(devices.filter(device => device.id !== deviceId));
-
-    // Optionally, you can also delete the device from the server
+    setDevices(devices.filter(device => device.ID !== deviceId));
     axios.delete(`http://localhost:3001/device/${deviceId}`, {
       headers: {
         Authorization: `Bearer ${Cookies.get('token')}`
@@ -80,7 +80,7 @@ const KolamIkan = () => {
       <div className="kolam-ikan-container">
         <div className="kolam-ikan-header">
           <BackButton />
-          <div className="kolam-ikan-title">Kolam Ikan Saya</div> //perbaiki fetch nama kolam dari API
+          <div className="kolam-ikan-title">{groupName}</div>
           <div className="kolam-ikan-underline"></div>
         </div>
         <div className="card-container">
@@ -90,13 +90,13 @@ const KolamIkan = () => {
             </button>
           </div>
           {devices.map(device => (
-            <div key={device.id}> //data device belum ter fetch
+            <div key={device.ID}>
               <CardKolam
-                title={device.name}
-                description={`Status: ${device.status}`}
-                status={device.status} 
-                onDetailsClick={() => handleDetailsClick(device.id)}
-                onDeleteClick={() => handleDeleteClick(device.id)}
+                title={device.Name}
+                description={`Aktivasi: ${device.IsActivated ? 'Aktif' : 'Tidak Aktif'}`}
+                status={device.IsActivated ? 'Aktif' : 'Tidak Aktif'}
+                onDetailsClick={() => handleDetailsClick(device.ID)}
+                onDeleteClick={() => handleDeleteClick(device.ID)}
                 editMode={editMode}
               />
             </div>

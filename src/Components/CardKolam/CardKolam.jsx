@@ -25,7 +25,7 @@ const CardKolam = ({ title, description, status, onDetailsClick, onDeleteClick, 
 CardKolam.propTypes = {
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
-  status: PropTypes.string.isRequired, // Menggunakan PropTypes.string karena status di KolamIkan adalah string
+  status: PropTypes.string.isRequired, 
   onDetailsClick: PropTypes.func.isRequired,
   onDeleteClick: PropTypes.func.isRequired,
   editMode: PropTypes.bool.isRequired,
