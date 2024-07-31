@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Typography, Paper, Grid } from '@mui/material';
-import axios from 'axios'; // import axios
+import { Container, Paper, Grid } from '@mui/material';
+import axios from 'axios';
+import Papa from 'papaparse';
+import Cookies from 'js-cookie';
+import { useNavigate } from 'react-router-dom';
 import Navbar from '../Navbar/Navbar';
 import BackButton from '../BackButton/BackButton';
 import SensorChart from '../SensorChart/SensorChart';
@@ -14,17 +17,48 @@ const SensorMonitoring = () => {
     konduktivitas: [],
   });
 
+  const navigate = useNavigate();
+
+  const processCSV = (csvData) => {
+    const parsedData = Papa.parse(csvData, {
+      header: true,
+      dynamicTyping: true,
+      skipEmptyLines: true,
+    });
+
+    const suhuAir = [];
+    const oksigen = [];
+    const pH = [];
+    const konduktivitas = [];
+
+    parsedData.data.forEach(row => {
+      suhuAir.push(row.suhuAir);
+      oksigen.push(row.oksigen);
+      pH.push(row.pH);
+      konduktivitas.push(row.konduktivitas);
+    });
+
+    setData({ suhuAir, oksigen, pH, konduktivitas });
+  };
+
   useEffect(() => {
+    const token = Cookies.get();
+    if (!token) {
+      console.log('No Token found, redirecting to Login');
+      navigate('/loginsignup');
+      return;
+    }
+    axios.defaults.withCredentials = true;
+
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://url_backend_anda/api/sensor');
-        const sensorData = response.data;
-        setData({
-          suhuAir: sensorData.suhuAir,
-          oksigen: sensorData.oksigen,
-          pH: sensorData.pH,
-          konduktivitas: sensorData.konduktivitas,
+        const response = await axios.get('http://localhost/api/sensor', {
+          headers: {
+            Authorization: `Bearer ${token}`
+          },
+          withCredentials: true
         });
+        processCSV(response.data);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -35,7 +69,7 @@ const SensorMonitoring = () => {
     const interval = setInterval(fetchData, 2000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [navigate]);
 
   return (
     <div className="sensor-monitoring-page">
