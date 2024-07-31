@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Typography, Paper, Grid } from '@mui/material';
+import axios from 'axios'; // import axios
 import Navbar from '../Navbar/Navbar';
 import BackButton from '../BackButton/BackButton';
 import SensorChart from '../SensorChart/SensorChart';
@@ -14,14 +15,24 @@ const SensorMonitoring = () => {
   });
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setData((prevData) => ({
-        suhuAir: [...prevData.suhuAir, Math.random() * 10 + 20],
-        oksigen: [...prevData.oksigen, Math.random() * 5 + 5],
-        pH: [...prevData.pH, Math.random() * 2 + 6],
-        konduktivitas: [...prevData.konduktivitas, Math.random() * 200 + 800],
-      }));
-    }, 2000);
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('http://url_backend_anda/api/sensor');
+        const sensorData = response.data;
+        setData({
+          suhuAir: sensorData.suhuAir,
+          oksigen: sensorData.oksigen,
+          pH: sensorData.pH,
+          konduktivitas: sensorData.konduktivitas,
+        });
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+
+    const interval = setInterval(fetchData, 2000);
 
     return () => clearInterval(interval);
   }, []);
