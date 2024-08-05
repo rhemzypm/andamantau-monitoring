@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Container, Paper, Grid } from '@mui/material';
 import axios from 'axios';
 import Papa from 'papaparse';
 import Cookies from 'js-cookie';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Navbar from '../Navbar/Navbar';
 import BackButton from '../BackButton/BackButton';
 import SensorChart from '../SensorChart/SensorChart';
@@ -14,12 +14,13 @@ const SensorMonitoring = () => {
     suhuAir: [],
     oksigen: [],
     pH: [],
-    konduktivitas: [],
+    padatanTerlarut: [],
   });
 
   const navigate = useNavigate();
+  const { deviceId } = useParams();
 
-  const processCSV = (csvData) => {
+  const processCSV = useCallback((csvData) => {
     const parsedData = Papa.parse(csvData, {
       header: true,
       dynamicTyping: true,
@@ -29,17 +30,17 @@ const SensorMonitoring = () => {
     const suhuAir = [];
     const oksigen = [];
     const pH = [];
-    const konduktivitas = [];
+    const padatanTerlarut = [];
 
     parsedData.data.forEach(row => {
-      suhuAir.push(row.suhuAir);
-      oksigen.push(row.oksigen);
-      pH.push(row.pH);
-      konduktivitas.push(row.konduktivitas);
+      suhuAir.push(row.WaterTemp);
+      oksigen.push(row.OxygenLevel);
+      pH.push(row.PhLevel);
+      padatanTerlarut.push(row.EcLevel);
     });
 
-    setData({ suhuAir, oksigen, pH, konduktivitas });
-  };
+    setData({ suhuAir, oksigen, pH, padatanTerlarut });
+  }, []);
 
   useEffect(() => {
     const token = Cookies.get();
@@ -48,19 +49,24 @@ const SensorMonitoring = () => {
       navigate('/loginsignup');
       return;
     }
+
     axios.defaults.withCredentials = true;
 
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost/api/sensor', {
+        const response = await axios.get(`http://localhost:3001/device/monitor-date-time/${deviceId}`, {
           headers: {
             Authorization: `Bearer ${token}`
           },
           withCredentials: true
         });
-        processCSV(response.data);
+        const { data: responseData } = response.data;
+        processCSV(responseData);
       } catch (error) {
         console.error('Error fetching data:', error);
+        if (error.response && error.response.status === 401) {
+          navigate('/loginsignup');
+        }
       }
     };
 
@@ -69,7 +75,7 @@ const SensorMonitoring = () => {
     const interval = setInterval(fetchData, 2000);
 
     return () => clearInterval(interval);
-  }, [navigate]);
+  }, [deviceId, navigate, processCSV]);
 
   return (
     <div className="sensor-monitoring-page">
@@ -92,7 +98,7 @@ const SensorMonitoring = () => {
               <SensorChart title="pH Air" data={data.pH} color="rgba(255, 206, 86, 1)" backgroundColor="rgba(255, 206, 86, 0.2)" />
             </Grid>
             <Grid item xs={12} md={6}>
-              <SensorChart title="Konduktivitas Elektrik" data={data.konduktivitas} color="rgba(153, 102, 255, 1)" backgroundColor="rgba(153, 102, 255, 0.2)" />
+              <SensorChart title="Padatan Terlarut" data={data.padatanTerlarut} color="rgba(153, 102, 255, 1)" backgroundColor="rgba(153, 102, 255, 0.2)" />
             </Grid>
           </Grid>
         </Paper>

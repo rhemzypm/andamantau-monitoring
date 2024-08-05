@@ -21,7 +21,6 @@ function App() {
         <Route path="/tambahkolam" element={<TambahKolam />} />
         <Route path="/kolamikan/:ID" element={<KolamIkan/>} />
         <Route path="/adddevice/:group_name/:ID" element={<AddDevice />} />
-        <Route path="/sensormonitoring" element={<SensorMonitoring />} />
         <Route path="/sensor-monitoring/:deviceId" element={<SensorMonitoring />} />
       </Routes>
     </Router>
