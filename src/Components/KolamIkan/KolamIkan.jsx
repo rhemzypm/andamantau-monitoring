@@ -50,8 +50,8 @@ const KolamIkan = () => {
   }, [navigate]);
 
   const handleTambahKolamClick = useCallback(() => {
-    navigate('/tambahkolam');
-  }, [navigate]);
+    navigate(`/adddevice/${groupName}/${ID}`);
+  }, [navigate, groupName, ID]);
 
   const handleEditClick = useCallback(() => {
     setEditMode(prevEditMode => !prevEditMode);
@@ -99,7 +99,7 @@ const KolamIkan = () => {
           ))}
           <div className="add-device-container">
             <button className="add-device-button" onClick={handleTambahKolamClick}> 
-              Tambah Kolam 
+              Tambah Device 
             </button>
           </div>
         </div>

@@ -20,7 +20,7 @@ function App() {
         <Route path="/inputnewpassword/:token" element={<InputNewPassword />} />
         <Route path="/tambahkolam" element={<TambahKolam />} />
         <Route path="/kolamikan/:ID" element={<KolamIkan/>} />
-        <Route path="/adddevice" element={<AddDevice />} />
+        <Route path="/adddevice/:group_name/:ID" element={<AddDevice />} />
         <Route path="/sensormonitoring" element={<SensorMonitoring />} />
         <Route path="/sensor-monitoring/:deviceId" element={<SensorMonitoring />} />
       </Routes>
