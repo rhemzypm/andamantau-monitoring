@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Container, Typography, Paper, Button, TextField } from '@mui/material';
 import './ForgotPassword.css';
 import { useNavigate } from 'react-router-dom';
+import BackButton from '../BackButton/BackButton';
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
@@ -37,6 +38,7 @@ const ForgotPassword = () => {
   return (
     <div className="forgot-password-page">
       <Container component="main" className="forgot-password-container">
+      <BackButton />
         <div className="forgot-password-header">
           <div className="forgot-password-title">Forgot Password</div>
           <div className="forgot-password-underline"></div>

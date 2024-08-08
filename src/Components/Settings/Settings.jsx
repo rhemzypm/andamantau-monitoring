@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Container, Typography, Paper, Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../Navbar/Navbar';
-import BackButton from '../BackButton/BackButton';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import './Settings.css';
@@ -56,7 +55,6 @@ const Settings = () => {
   return (
     <div className="settings-page">
       <Navbar />
-      <BackButton />
       <Container component="main" className="settings-container">
         <div className="settings-header">
           <div className="settings-title">Pengaturan</div>

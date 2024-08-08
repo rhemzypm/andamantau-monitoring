@@ -80,9 +80,20 @@
 }
 
 /* Media Queries for responsiveness */
-@media (max-width: 600px) {
+@media (max-width: 768px) {
+
+    .tambah-kolam-container {
+        max-width: 100%;
+    }
+
+    .tambah-kolam-paper {
+        width: 90%;
+        margin-top: 10%;
+    }
+
     .tambah-kolam-title {
-        font-size: 20px;
+        margin-top: 10%;
+        font-size: 25px;
     }
 
     .tambah-kolam-name {

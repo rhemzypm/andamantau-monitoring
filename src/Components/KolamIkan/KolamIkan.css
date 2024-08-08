@@ -110,10 +110,11 @@
 @media (max-width: 768px) {
   .kolam-ikan-container {
     padding: 0 10px;
+    width: 75%;
   }
 
   .kolam-ikan-title {
-    font-size: 20px;
+    font-size: 30px;
   }
 
   .kolam-ikan-underline {

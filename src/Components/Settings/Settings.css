@@ -47,16 +47,17 @@
 
 /* Media Query untuk Responsivitas */
 @media (max-width: 768px) {
+    .settings-paper {
+        margin-top: 20px;
+        max-width: 90%;
+    }
+
     .settings-container {
         padding: 0 10px;
     }
 
     .settings-title {
-        font-size: 20px;
-    }
-
-    .settings-info {
-        font-size: 16px;
+        font-size: 30px;
     }
 
     .logout-button {

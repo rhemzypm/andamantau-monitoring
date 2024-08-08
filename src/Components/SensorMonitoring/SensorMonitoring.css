@@ -54,12 +54,20 @@
     margin-bottom: 10px;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
+    .sensor-monitoring-container {
+        margin-bottom: 15%;
+    }
+    
     .sensor-monitoring-title {
-        font-size: 20px;
+        font-size: 25px;
     }
 
     .sensor-monitoring-name {
         font-size: 16px;
+    }
+    
+    .sensor-monitoring-paper{
+        max-width: 90%;
     }
 }

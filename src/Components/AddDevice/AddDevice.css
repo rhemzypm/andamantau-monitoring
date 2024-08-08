@@ -76,13 +76,20 @@
     margin-top: 10px;
 }
 
-@media (max-width: 600px) {
-    .add-device-paper {
+@media (max-width: 700px) {
+    .add-device-container {
+        width: 100%;
+    }
+
+    .add-device-paper { 
         padding: 15px;
+        width: 90%;
+        margin-top: 10%;
     }
 
     .add-device-title {
-        font-size: 20px;
+        margin-top: 10%;
+        font-size: 25px;
     }
 
     .add-device-underline {

@@ -4,7 +4,6 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import Navbar from '../Navbar/Navbar';
 import Card from '../Carousel Card/Card';
-import BackButton from '../BackButton/BackButton';
 import './Home.css';
 
 const Home = () => {
@@ -68,7 +67,6 @@ const Home = () => {
       <Navbar />
       <div className="home-container">
         <div className="home-header">
-          <BackButton />
           <div className="home-title">Kolam Saya</div>
           <div className="home-underline"></div>
         </div>

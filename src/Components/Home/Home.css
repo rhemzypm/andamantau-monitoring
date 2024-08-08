@@ -74,11 +74,12 @@
 /* Media Query untuk Responsivitas */
 @media (max-width: 768px) {
     .home-container {
+        min-width: 75%;
         padding: 0 10px;
     }
 
     .home-title {
-        font-size: 20px;
+        font-size: 30px;
     }
 
     .home-underline {
