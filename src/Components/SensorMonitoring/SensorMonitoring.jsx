@@ -54,11 +54,14 @@ const SensorMonitoring = () => {
 
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:3001/device/monitor-date-time/${deviceId}`, {
+        const response = await axios.post(`http://localhost:3001/device/monitor-date-time`, {
+          device_id: deviceId,
           headers: {
-            Authorization: `Bearer ${token}`
+            Authorization: `Bearer ${token}`,
+            'Access-Control-Allow-Credentials':true
           },
-          withCredentials: true
+  
+          // withCredentials: false
         });
         const { data: responseData } = response.data;
         processCSV(responseData);
@@ -71,8 +74,7 @@ const SensorMonitoring = () => {
     };
 
     fetchData();
-
-    const interval = setInterval(fetchData, 2000);
+    const interval = setInterval(fetchData, 30000);
 
     return () => clearInterval(interval);
   }, [deviceId, navigate, processCSV]);
