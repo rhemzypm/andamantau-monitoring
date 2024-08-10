@@ -50,7 +50,8 @@ const KolamIkan = () => {
   }, [navigate]);
 
   const handleTambahKolamClick = useCallback(() => {
-    navigate(`/adddevice/${groupName}/${ID}`);
+    const safeGroupName = groupName || 'default-group-name';
+    navigate(`/adddevice/${safeGroupName}/${ID}`);
   }, [navigate, groupName, ID]);
 
   const handleEditClick = useCallback(() => {
