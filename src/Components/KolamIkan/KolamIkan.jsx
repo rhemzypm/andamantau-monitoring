@@ -60,7 +60,7 @@ const KolamIkan = () => {
   const handleDeleteClick = useCallback((deviceId) => {
     setDevices(devices => devices.filter(device => device.ID !== deviceId));
     requestAnimationFrame(() => {
-      axios.delete(`http://localhost:3001/device/${deviceId}`, {
+      axios.delete(`http://localhost:3001/device/delete/${deviceId}`, {
         headers: {
           Authorization: `Bearer ${Cookies.get('token')}`
         }
