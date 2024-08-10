@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Container, Paper, Grid } from '@mui/material';
+import { Container, Paper, Grid, TextField, MenuItem } from '@mui/material';
 import axios from 'axios';
-import Papa from 'papaparse';
 import Cookies from 'js-cookie';
 import { useNavigate, useParams } from 'react-router-dom';
 import Navbar from '../Navbar/Navbar';
@@ -17,26 +16,38 @@ const SensorMonitoring = () => {
     padatanTerlarut: [],
   });
 
+  const [selectedDate, setSelectedDate] = useState(''); 
+  const [selectedInterval, setSelectedInterval] = useState(''); 
+
   const navigate = useNavigate();
   const { deviceId } = useParams();
 
   const processCSV = useCallback((csvData) => {
-    const parsedData = Papa.parse(csvData, {
-      header: true,
-      dynamicTyping: true,
-      skipEmptyLines: true,
-    });
+    console.log("Raw CSV Data:", csvData);
+
+    const rows = csvData.split('\n').filter(row => row); 
+    console.log("CSV Rows:", rows);
+
+    const dataRows = rows.slice(1).map(row => row.split(','));
+    console.log("Data Rows:", dataRows);
 
     const suhuAir = [];
     const oksigen = [];
     const pH = [];
     const padatanTerlarut = [];
 
-    parsedData.data.forEach(row => {
-      suhuAir.push(row.WaterTemp);
-      oksigen.push(row.OxygenLevel);
-      pH.push(row.PhLevel);
-      padatanTerlarut.push(row.EcLevel);
+    dataRows.forEach(row => {
+      console.log("Current Row:", row);
+
+      oksigen.push(parseFloat(row[0])); 
+      suhuAir.push(parseFloat(row[1])); 
+      padatanTerlarut.push(parseFloat(row[2])); 
+      pH.push(parseFloat(row[3])); 
+
+      console.log("Oxygen Level Array:", oksigen);
+      console.log("Water Temperature Array:", suhuAir);
+      console.log("EC Level Array:", padatanTerlarut);
+      console.log("pH Level Array:", pH);
     });
 
     setData({ suhuAir, oksigen, pH, padatanTerlarut });
@@ -54,15 +65,22 @@ const SensorMonitoring = () => {
 
     const fetchData = async () => {
       try {
-        const response = await axios.post(`http://localhost:3001/device/monitor-date-time`, {
+        const date = selectedDate === '' ? new Date().toISOString() : new Date(selectedDate).toISOString();
+
+        const payload = {
           device_id: deviceId,
+          date: date,
+          interval: selectedInterval
+        };
+
+        console.log("Payload:", payload);
+
+        const response = await axios.post(`http://localhost:3001/device/monitor-date-time`, payload, {
           headers: {
             Authorization: `Bearer ${token}`,
-            'Access-Control-Allow-Credentials':true
           },
-  
-          // withCredentials: false
         });
+
         const { data: responseData } = response.data;
         processCSV(responseData);
       } catch (error) {
@@ -77,7 +95,7 @@ const SensorMonitoring = () => {
     const interval = setInterval(fetchData, 30000);
 
     return () => clearInterval(interval);
-  }, [deviceId, navigate, processCSV]);
+  }, [deviceId, navigate, processCSV, selectedDate, selectedInterval]);
 
   return (
     <div className="sensor-monitoring-page">
@@ -90,6 +108,35 @@ const SensorMonitoring = () => {
         </div>
         <Paper elevation={3} className="sensor-monitoring-paper">
           <Grid container spacing={3}>
+            <Grid item xs={12} md={6}>
+              <TextField
+                label="Select Date"
+                type="datetime-local"
+                value={selectedDate}
+                onChange={(e) => setSelectedDate(e.target.value)}
+                fullWidth
+                InputLabelProps={{
+                  shrink: true,
+                }}
+              />
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <TextField
+                select
+                label="Select Interval"
+                value={selectedInterval}
+                onChange={(e) => setSelectedInterval(e.target.value)}
+                fullWidth
+              >
+                <MenuItem value="">Now</MenuItem>
+                <MenuItem value="5m">5 minutes</MenuItem>
+                <MenuItem value="10m">10 minutes</MenuItem>
+                <MenuItem value="15m">15 minutes</MenuItem>
+                <MenuItem value="20m">20 minutes</MenuItem>
+                <MenuItem value="25m">25 minutes</MenuItem>
+                <MenuItem value="30m">30 minutes</MenuItem>
+              </TextField>
+            </Grid>
             <Grid item xs={12} md={6}>
               <SensorChart title="Suhu Air" data={data.suhuAir} color="rgba(75, 192, 192, 1)" backgroundColor="rgba(75, 192, 192, 0.2)" />
             </Grid>
