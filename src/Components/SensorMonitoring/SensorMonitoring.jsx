@@ -1,12 +1,12 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { Container, Paper, Grid, TextField, MenuItem } from '@mui/material';
-import axios from 'axios';
-import Cookies from 'js-cookie';
-import { useNavigate, useParams } from 'react-router-dom';
-import Navbar from '../Navbar/Navbar';
-import BackButton from '../BackButton/BackButton';
-import SensorChart from '../SensorChart/SensorChart';
-import './SensorMonitoring.css';
+import React, { useState, useEffect, useCallback } from "react";
+import { Container, Paper, Grid, TextField, MenuItem } from "@mui/material";
+import axios from "axios";
+import Cookies from "js-cookie";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
+import Navbar from "../Navbar/Navbar";
+import BackButton from "../BackButton/BackButton";
+import SensorChart from "../SensorChart/SensorChart";
+import "./SensorMonitoring.css";
 
 const SensorMonitoring = () => {
   const [data, setData] = useState({
@@ -16,19 +16,21 @@ const SensorMonitoring = () => {
     padatanTerlarut: [],
   });
 
-  const [selectedDate, setSelectedDate] = useState(''); 
-  const [selectedInterval, setSelectedInterval] = useState(''); 
+  const [selectedDate, setSelectedDate] = useState("");
+  const [selectedInterval, setSelectedInterval] = useState("");
 
   const navigate = useNavigate();
   const { deviceId } = useParams();
+  const { state } = useLocation(); 
+  const deviceName = state?.deviceName || "Monitoring Sensor"; 
 
   const processCSV = useCallback((csvData) => {
     console.log("Raw CSV Data:", csvData);
 
-    const rows = csvData.split('\n').filter(row => row); 
+    const rows = csvData.split("\n").filter((row) => row);
     console.log("CSV Rows:", rows);
 
-    const dataRows = rows.slice(1).map(row => row.split(','));
+    const dataRows = rows.slice(1).map((row) => row.split(","));
     console.log("Data Rows:", dataRows);
 
     const suhuAir = [];
@@ -36,13 +38,13 @@ const SensorMonitoring = () => {
     const pH = [];
     const padatanTerlarut = [];
 
-    dataRows.forEach(row => {
+    dataRows.forEach((row) => {
       console.log("Current Row:", row);
 
-      oksigen.push(parseFloat(row[0])); 
-      suhuAir.push(parseFloat(row[1])); 
-      padatanTerlarut.push(parseFloat(row[2])); 
-      pH.push(parseFloat(row[3])); 
+      oksigen.push(parseFloat(row[0]));
+      suhuAir.push(parseFloat(row[1]));
+      padatanTerlarut.push(parseFloat(row[2]));
+      pH.push(parseFloat(row[3]));
 
       console.log("Oxygen Level Array:", oksigen);
       console.log("Water Temperature Array:", suhuAir);
@@ -56,8 +58,8 @@ const SensorMonitoring = () => {
   useEffect(() => {
     const token = Cookies.get();
     if (!token) {
-      console.log('No Token found, redirecting to Login');
-      navigate('/loginsignup');
+      console.log("No Token found, redirecting to Login");
+      navigate("/loginsignup");
       return;
     }
 
@@ -65,28 +67,35 @@ const SensorMonitoring = () => {
 
     const fetchData = async () => {
       try {
-        const date = selectedDate === '' ? new Date().toISOString() : new Date(selectedDate).toISOString();
+        const date =
+          selectedDate === ""
+            ? new Date().toISOString()
+            : new Date(selectedDate).toISOString();
 
         const payload = {
           device_id: deviceId,
           date: date,
-          interval: selectedInterval
+          interval: selectedInterval,
         };
 
         console.log("Payload:", payload);
 
-        const response = await axios.post(`http://localhost:3001/device/monitor-date-time`, payload, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await axios.post(
+          `http://localhost:3001/device/monitor-date-time`,
+          payload,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
         const { data: responseData } = response.data;
         processCSV(responseData);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error("Error fetching data:", error);
         if (error.response && error.response.status === 401) {
-          navigate('/loginsignup');
+          navigate("/loginsignup");
         }
       }
     };
@@ -103,7 +112,7 @@ const SensorMonitoring = () => {
       <Container component="main" className="sensor-monitoring-container">
         <BackButton />
         <div className="sensor-monitoring-header">
-          <div className="sensor-monitoring-title">Monitoring Sensor</div>
+          <div className="sensor-monitoring-title">{deviceName}</div>{" "}
           <div className="sensor-monitoring-underline"></div>
         </div>
         <Paper elevation={3} className="sensor-monitoring-paper">
@@ -138,16 +147,16 @@ const SensorMonitoring = () => {
               </TextField>
             </Grid>
             <Grid item xs={12} md={6}>
-              <SensorChart title="Suhu Air" data={data.suhuAir} color="rgba(75, 192, 192, 1)" backgroundColor="rgba(75, 192, 192, 0.2)" />
+              <SensorChart title="Temperature" data={data.suhuAir} />
             </Grid>
             <Grid item xs={12} md={6}>
-              <SensorChart title="Oksigen" data={data.oksigen} color="rgba(54, 162, 235, 1)" backgroundColor="rgba(54, 162, 235, 0.2)" />
+              <SensorChart title="Oxygen Level" data={data.oksigen} />
             </Grid>
             <Grid item xs={12} md={6}>
-              <SensorChart title="pH Air" data={data.pH} color="rgba(255, 206, 86, 1)" backgroundColor="rgba(255, 206, 86, 0.2)" />
+              <SensorChart title="pH Level" data={data.pH} />
             </Grid>
             <Grid item xs={12} md={6}>
-              <SensorChart title="Padatan Terlarut" data={data.padatanTerlarut} color="rgba(153, 102, 255, 1)" backgroundColor="rgba(153, 102, 255, 0.2)" />
+              <SensorChart title="EC Level" data={data.padatanTerlarut} />
             </Grid>
           </Grid>
         </Paper>
