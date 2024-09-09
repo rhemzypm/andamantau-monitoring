@@ -156,7 +156,7 @@ const SensorMonitoring = () => {
               <SensorChart title="pH Level" data={data.pH} />
             </Grid>
             <Grid item xs={12} md={6}>
-              <SensorChart title="EC Level" data={data.padatanTerlarut} />
+              <SensorChart title="Padatan Terlarut" data={data.padatanTerlarut} />
             </Grid>
           </Grid>
         </Paper>
